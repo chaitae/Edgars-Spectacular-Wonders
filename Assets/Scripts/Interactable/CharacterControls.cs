@@ -32,7 +32,7 @@ public class CharacterControls : MonoBehaviour
     {
         StartCoroutine("PickUpHelper");
     }
-    public void SetMovement(bool canMove,string classname)
+    public void SetMovement(bool canMove, string classname)
     {
         this.canMove = canMove;
     }
@@ -45,13 +45,10 @@ public class CharacterControls : MonoBehaviour
         {
             Debug.DrawRay(transform.position - transform.lossyScale.y * .75f * Vector3.up, transform.forward * hit.distance, Color.yellow);
             IInteractable tempInteractableObj = hit.collider.GetComponent<IInteractable>();
+            Debug.Log(hit.collider.transform.gameObject.name + "detected");
             if (tempInteractableObj != null)
             {
-                if (tempInteractableObj == interactableObj)
-                {
-                    //interactableObj.CharacterEnter(this);
-                }
-                else if (interactableObj == null)
+                if (interactableObj == null)
                 {
                     interactableObj = tempInteractableObj;
                     interactableObj.CharacterEnter(this);

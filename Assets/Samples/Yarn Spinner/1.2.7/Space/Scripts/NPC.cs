@@ -82,7 +82,7 @@ namespace Yarn.Unity.Example
         string CheckEventsTriggered()
         {
             if(gameEventDialogueNodes.Count == 0) return "";
-            for(int i = gameEventDialogueNodes.Count; i >=0 ;i--)
+            for(int i = gameEventDialogueNodes.Count-1; i >=0 ;i--)
             {
                 if(gameEventDialogueNodes[i].gameEvent.eventRaised)
                 {
@@ -97,12 +97,6 @@ namespace Yarn.Unity.Example
             if (dialogueRunner.IsDialogueRunning) return;
 
             string talkNodetoUse = defaultTalkNode;
-            //check for specific item talking nodes
-
-            // if (gameEventDialogueNode.gameEvent != null)
-            // {
-            //     if (gameEventDialogueNode.gameEvent.eventRaised) talkNodetoUse = gameEventDialogueNode.dialogueNode;
-            // }
             if(CheckEventsTriggered() != "") talkNodetoUse = CheckEventsTriggered();
             if (characterControls.equippedObject != null)
             {

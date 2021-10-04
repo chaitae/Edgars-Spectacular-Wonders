@@ -24,6 +24,7 @@ public class LookAt : MonoBehaviour, IInteractable
     // public cinemachine
     public void CharacterEnter(CharacterControls characterControls)
     {
+        Debug.Log("character entered");
     }
 
     public void CharacterExit(CharacterControls characterControls)
@@ -36,6 +37,7 @@ public class LookAt : MonoBehaviour, IInteractable
 
     public void Interact(CharacterControls characterControls)
     {
+        Debug.Log("look at button");
         characterControls.canUseObject = false;
         cinemachineVirtualCamera.Priority = 100;
         characterControls.SetMovement(false, " Look at set false");
