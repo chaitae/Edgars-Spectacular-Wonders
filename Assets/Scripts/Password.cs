@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Yarn.Unity;
+using TMPro;
 
 public class Password : MonoBehaviour
 {
     public GameObject ui;
+    public TMP_InputField myinputfield;
     public GameEvent gameEvent;
     public string password;
 
@@ -13,6 +16,8 @@ public class Password : MonoBehaviour
     public void OpenPasswordScreen()
     {
         ui.SetActive(true);
+        myinputfield.Select();
+        myinputfield.ActivateInputField();
         StartCoroutine("DisableMovement");
     }
     public void HidePasswordScreen()

@@ -20,7 +20,7 @@ public class Shovel : MonoBehaviour, IInteractable
         // Does the ray intersect any objects excluding the player layer
         if (Physics.Raycast(characterControls.transform.position - transform.lossyScale.y * .75f * Vector3.up, -transform.up, out hit, Mathf.Infinity))
         {
-            if (hit.collider.gameObject.name == "grave")
+            if (hit.collider.gameObject.GetComponent<IDiggable>() != null)
             {
                 IDiggable diggable = hit.collider.GetComponent<IDiggable>();
                 if(diggable != null) diggable.Dig();
@@ -49,6 +49,7 @@ public class Shovel : MonoBehaviour, IInteractable
         {
             characterControls1.Drop();
             characterControls1 = null;
+            equipped = false;
         }
     }
 

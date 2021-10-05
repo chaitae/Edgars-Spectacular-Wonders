@@ -6,6 +6,8 @@ public class CharacterControls : MonoBehaviour
 {
     public GameObject holdGameObjectPosition;
     public GameObject equippedObject;
+    [SerializeField]
+    private float raycastDistance = 2f;
     private CharacterController controller;
     IInteractable interactableObj;
     public bool canUseObject = true;
@@ -41,7 +43,7 @@ public class CharacterControls : MonoBehaviour
 
         RaycastHit hit;
         // Does the ray intersect any objects excluding the player layer
-        if (Physics.Raycast(transform.position - transform.lossyScale.y * .75f * Vector3.up, transform.forward, out hit, Mathf.Infinity))
+        if (Physics.Raycast(transform.position - transform.lossyScale.y * .75f * Vector3.up, transform.forward, out hit, raycastDistance))
         {
             Debug.DrawRay(transform.position - transform.lossyScale.y * .75f * Vector3.up, transform.forward * hit.distance, Color.yellow);
             IInteractable tempInteractableObj = hit.collider.GetComponent<IInteractable>();
@@ -72,7 +74,8 @@ public class CharacterControls : MonoBehaviour
     {
         equippedObject.transform.parent = null;
         equippedObject.transform.position = transform.position + transform.forward;
-        equippedObject.GetComponent<Rigidbody>().isKinematic = false;
+        if (equippedObject.GetComponent<Rigidbody>() != null)
+            equippedObject.GetComponent<Rigidbody>().isKinematic = false;
         equippedObject = null;
     }
     //this goes over players head

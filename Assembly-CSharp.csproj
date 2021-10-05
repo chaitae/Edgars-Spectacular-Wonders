@@ -36,16 +36,18 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\IDiggable.cs" />
      <Compile Include="Assets\Samples\Yarn Spinner\1.2.7\Space\Scripts\CameraFollow.cs" />
      <Compile Include="Assets\Samples\Yarn Spinner\1.2.7\Space\Scripts\MobileOnly.cs" />
      <Compile Include="Assets\Samples\Yarn Spinner\1.2.7\Space\Scripts\NPC.cs" />
      <Compile Include="Assets\Samples\Yarn Spinner\1.2.7\Space\Scripts\NodeVisitedTracker.cs" />
      <Compile Include="Assets\Samples\Yarn Spinner\1.2.7\Space\Scripts\PlayerCharacter.cs" />
      <Compile Include="Assets\Samples\Yarn Spinner\1.2.7\Space\Scripts\SpriteSwitcher.cs" />
+     <Compile Include="Assets\Scripts\DialogueCommands.cs" />
      <Compile Include="Assets\Scripts\GameEvent.cs" />
      <Compile Include="Assets\Scripts\GameEventListener.cs" />
+     <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\Grave.cs" />
+     <Compile Include="Assets\Scripts\IDiggable.cs" />
      <Compile Include="Assets\Scripts\Interactable\CharacterControls.cs" />
      <Compile Include="Assets\Scripts\Interactable\IInteractable.cs" />
      <Compile Include="Assets\Scripts\Interactable\LookAt.cs" />
@@ -257,35 +259,35 @@
     <Reference Include="UnityEditor">
         <HintPath>C:/data/Creative_Projects/Unity/2019.4.15f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
-    <Reference Include="System.Reflection.TypeExtensions">
-        <HintPath>C:/data/Creative_Projects/Unity/Edgars Spectacular Wonders/Library/PackageCache/dev.yarnspinner.unity@e050b45804/Runtime/DLLs/System.Reflection.TypeExtensions.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Buffers">
-        <HintPath>C:/data/Creative_Projects/Unity/Edgars Spectacular Wonders/Library/PackageCache/dev.yarnspinner.unity@e050b45804/Runtime/DLLs/System.Buffers.dll</HintPath>
-    </Reference>
-    <Reference Include="YarnSpinner.Compiler">
-        <HintPath>C:/data/Creative_Projects/Unity/Edgars Spectacular Wonders/Library/PackageCache/dev.yarnspinner.unity@e050b45804/Runtime/DLLs/YarnSpinner.Compiler.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Protobuf">
-        <HintPath>C:/data/Creative_Projects/Unity/Edgars Spectacular Wonders/Library/PackageCache/dev.yarnspinner.unity@e050b45804/Runtime/DLLs/Google.Protobuf.dll</HintPath>
-    </Reference>
     <Reference Include="Antlr4.Runtime.Standard">
         <HintPath>C:/data/Creative_Projects/Unity/Edgars Spectacular Wonders/Library/PackageCache/dev.yarnspinner.unity@e050b45804/Runtime/DLLs/Antlr4.Runtime.Standard.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.CompilerServices.Unsafe">
-        <HintPath>C:/data/Creative_Projects/Unity/Edgars Spectacular Wonders/Library/PackageCache/dev.yarnspinner.unity@e050b45804/Runtime/DLLs/System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="CsvHelper">
         <HintPath>C:/data/Creative_Projects/Unity/Edgars Spectacular Wonders/Library/PackageCache/dev.yarnspinner.unity@e050b45804/Runtime/DLLs/CsvHelper.dll</HintPath>
     </Reference>
+    <Reference Include="Google.Protobuf">
+        <HintPath>C:/data/Creative_Projects/Unity/Edgars Spectacular Wonders/Library/PackageCache/dev.yarnspinner.unity@e050b45804/Runtime/DLLs/Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Buffers">
+        <HintPath>C:/data/Creative_Projects/Unity/Edgars Spectacular Wonders/Library/PackageCache/dev.yarnspinner.unity@e050b45804/Runtime/DLLs/System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Memory">
         <HintPath>C:/data/Creative_Projects/Unity/Edgars Spectacular Wonders/Library/PackageCache/dev.yarnspinner.unity@e050b45804/Runtime/DLLs/System.Memory.dll</HintPath>
     </Reference>
-    <Reference Include="YarnSpinner">
-        <HintPath>C:/data/Creative_Projects/Unity/Edgars Spectacular Wonders/Library/PackageCache/dev.yarnspinner.unity@e050b45804/Runtime/DLLs/YarnSpinner.dll</HintPath>
-    </Reference>
     <Reference Include="System.Numerics.Vectors">
         <HintPath>C:/data/Creative_Projects/Unity/Edgars Spectacular Wonders/Library/PackageCache/dev.yarnspinner.unity@e050b45804/Runtime/DLLs/System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.TypeExtensions">
+        <HintPath>C:/data/Creative_Projects/Unity/Edgars Spectacular Wonders/Library/PackageCache/dev.yarnspinner.unity@e050b45804/Runtime/DLLs/System.Reflection.TypeExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe">
+        <HintPath>C:/data/Creative_Projects/Unity/Edgars Spectacular Wonders/Library/PackageCache/dev.yarnspinner.unity@e050b45804/Runtime/DLLs/System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="YarnSpinner.Compiler">
+        <HintPath>C:/data/Creative_Projects/Unity/Edgars Spectacular Wonders/Library/PackageCache/dev.yarnspinner.unity@e050b45804/Runtime/DLLs/YarnSpinner.Compiler.dll</HintPath>
+    </Reference>
+    <Reference Include="YarnSpinner">
+        <HintPath>C:/data/Creative_Projects/Unity/Edgars Spectacular Wonders/Library/PackageCache/dev.yarnspinner.unity@e050b45804/Runtime/DLLs/YarnSpinner.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
         <HintPath>C:/data/Creative_Projects/Unity/2019.4.15f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
@@ -647,6 +649,9 @@
     <Reference Include="Unity.VSCode.Editor">
         <HintPath>C:/data/Creative_Projects/Unity/Edgars Spectacular Wonders/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="YarnSpinner.Unity.Editor">
+        <HintPath>C:/data/Creative_Projects/Unity/Edgars Spectacular Wonders/Library/ScriptAssemblies/YarnSpinner.Unity.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
         <HintPath>C:/data/Creative_Projects/Unity/Edgars Spectacular Wonders/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
@@ -659,17 +664,14 @@
     <Reference Include="Unity.Rider.Editor">
         <HintPath>C:/data/Creative_Projects/Unity/Edgars Spectacular Wonders/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="YarnSpinner.Unity">
+        <HintPath>C:/data/Creative_Projects/Unity/Edgars Spectacular Wonders/Library/ScriptAssemblies/YarnSpinner.Unity.dll</HintPath>
+    </Reference>
     <Reference Include="com.unity.cinemachine.editor">
         <HintPath>C:/data/Creative_Projects/Unity/Edgars Spectacular Wonders/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
         <HintPath>C:/data/Creative_Projects/Unity/Edgars Spectacular Wonders/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
-    </Reference>
-    <Reference Include="YarnSpinner.Unity.Editor">
-        <HintPath>C:/data/Creative_Projects/Unity/Edgars Spectacular Wonders/Library/ScriptAssemblies/YarnSpinner.Unity.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="YarnSpinner.Unity">
-        <HintPath>C:/data/Creative_Projects/Unity/Edgars Spectacular Wonders/Library/ScriptAssemblies/YarnSpinner.Unity.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

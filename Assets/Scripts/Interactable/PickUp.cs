@@ -18,10 +18,12 @@ public class PickUp : MonoBehaviour, IInteractable
         {
 
             characterControls.PickUp(gameObject);
-            GetComponent<Rigidbody>().isKinematic = true;
+            if (GetComponent<Rigidbody>() != null)
+            {
+                GetComponent<Rigidbody>().isKinematic = true;
+            }
         }
     }
-
     public void EquippedAction(CharacterControls characterControls)
     {
         characterControls.Drop();

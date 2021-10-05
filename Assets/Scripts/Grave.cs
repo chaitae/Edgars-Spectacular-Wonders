@@ -8,9 +8,10 @@ public class Grave : MonoBehaviour,IDiggable
     public GameObject treasureLandingPosition;
     public void Dig()
     {
-        if(treasure)
+        Debug.Log("I'm digging");
+        if(treasure != null )
         {
-
+            treasure.SetActive(true);
         }
         // Debug.Log("You dug a grave!");
     }
