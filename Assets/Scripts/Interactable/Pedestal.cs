@@ -7,9 +7,10 @@ public class Pedestal : MonoBehaviour, IInteractable
 {
     public GameObject objectPosition;
     public GameObject placedObject;
+    public bool allowPickUp = true;
     public void CharacterEnter(CharacterControls characterControls)
     {
-        if (characterControls.equippedObject != null)
+        if (characterControls.equippedObject != null && placedObject == null)
             UIManager._instance.ShowInteractionText();
 
         if (placedObject != null)
@@ -17,7 +18,6 @@ public class Pedestal : MonoBehaviour, IInteractable
             if (placedObject.GetComponent<SpecialNPC>() != null)
             {
                 placedObject.GetComponent<SpecialNPC>().ShowSpecial();
-                UIManager._instance.ShowInteractionText();
             }
         }
     }
@@ -50,7 +50,7 @@ public class Pedestal : MonoBehaviour, IInteractable
             }
         }
 
-        if (characterControls.equippedObject != null)
+        if (characterControls.equippedObject != null && placedObject == null) // place on pedestle
         {
             characterControls.equippedObject.transform.position = objectPosition.transform.position;
             characterControls.equippedObject.transform.parent = null;
@@ -64,7 +64,7 @@ public class Pedestal : MonoBehaviour, IInteractable
                 placedObject.GetComponent<SpecialNPC>().ShowSpecial();
             }
         }
-        else if (keyCode != KeyCode.T)
+        else if (keyCode != KeyCode.T && characterControls.equippedObject == null) //pickup code
         {
             if (placedObject != null)
                 characterControls.PickUp(placedObject);

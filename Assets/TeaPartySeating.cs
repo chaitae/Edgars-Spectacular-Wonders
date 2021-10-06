@@ -109,7 +109,13 @@ public class TeaPartySeating : MonoBehaviour
         if(pedestals.Length <= 0) isGoodSeating = false;
         return isGoodSeating;
     }
-
+    void OnSeatedWell()
+    {
+        foreach(Pedestal pedestal in pedestals)
+        {
+            pedestal.enabled = false;
+        }
+    }
     // Update is called once per frame
     void Update()
     {
