@@ -12,6 +12,7 @@ public class LookAt : MonoBehaviour, IInteractable
     public bool hidePlayerOnView = false;
     bool playerLooking = false;
 
+
     public void ExitLook()
     {
 

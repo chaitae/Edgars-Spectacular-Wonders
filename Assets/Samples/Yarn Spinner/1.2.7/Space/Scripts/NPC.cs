@@ -48,19 +48,33 @@ namespace Yarn.Unity.Example
         public string defaultTalkNode = "";
         bool listening = false;
         bool characterNear = false;
+        CharacterControls characterControls1;
 
         [Header("Optional")]
         public YarnProgram scriptToLoad;
+        public void StartDialogue(string str)
+        {
 
+            DialogueRunner dialogueRunner = FindObjectOfType<DialogueRunner>();
+            dialogueRunner.StopAllCoroutines();
+            dialogueRunner.StartDialogue(str);
+            characterControls1.SetMovement(false, "NPC");
+            listening = true;
+            dialogueRunner.onDialogueComplete.AddListener(() => EnableMovement(characterControls1));
+            dialogueRunner.onDialogueComplete.AddListener(() => UIManager._instance.ContinueCheckingForNearInteractable());
+            UIManager._instance.StopCheckingForNearInteractable();
+            UIManager._instance.HideInteractionText();
+        }
         public void CharacterEnter(CharacterControls characterControls)
         {
+            characterControls1 = characterControls;
             characterControls.canUseObject = false;
-            
+
         }
 
         public void CharacterExit(CharacterControls characterControls)
         {
-
+            characterControls1 = null;
             characterControls.canUseObject = true;
         }
 
@@ -93,7 +107,7 @@ namespace Yarn.Unity.Example
             }
             return "";
         }
-        public void Interact(CharacterControls characterControls,KeyCode keyCode)
+        public void Interact(CharacterControls characterControls, KeyCode keyCode)
         {
             DialogueRunner dialogueRunner = FindObjectOfType<DialogueRunner>();
             if (dialogueRunner.IsDialogueRunning) return;
@@ -108,14 +122,14 @@ namespace Yarn.Unity.Example
                 }
             }
 
-            FindObjectOfType<DialogueRunner>().StartDialogue(talkNodetoUse);
+            dialogueRunner.StartDialogue(talkNodetoUse);
 
 
             characterControls.SetMovement(false, "NPC");
             dialogueRunner = FindObjectOfType<DialogueRunner>();
             listening = true;
             dialogueRunner.onDialogueComplete.AddListener(() => EnableMovement(characterControls));
-            dialogueRunner.onDialogueComplete.AddListener(() =>  UIManager._instance.ContinueCheckingForNearInteractable());
+            dialogueRunner.onDialogueComplete.AddListener(() => UIManager._instance.ContinueCheckingForNearInteractable());
             UIManager._instance.StopCheckingForNearInteractable();
             UIManager._instance.HideInteractionText();
         }

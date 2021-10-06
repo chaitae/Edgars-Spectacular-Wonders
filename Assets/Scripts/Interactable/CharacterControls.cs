@@ -21,6 +21,8 @@ public class CharacterControls : MonoBehaviour
     public float playerSpeed = 2.0f;
     private float gravityValue = -9.81f;
 
+    float raycastRatio = .5f;
+
 
     void Awake()
     {
@@ -46,11 +48,10 @@ public class CharacterControls : MonoBehaviour
 
         RaycastHit hit;
         // Does the ray intersect any objects excluding the player layer
-        if (Physics.Raycast(transform.position - transform.lossyScale.y * .75f * Vector3.up, transform.forward, out hit, raycastDistance))
+        if (Physics.Raycast(transform.position - transform.lossyScale.y * raycastRatio * Vector3.up, transform.forward, out hit, raycastDistance))
         {
-            Debug.DrawRay(transform.position - transform.lossyScale.y * .75f * Vector3.up, transform.forward * hit.distance, Color.yellow);
+            Debug.DrawRay(transform.position - transform.lossyScale.y * raycastRatio * Vector3.up, transform.forward * hit.distance, Color.yellow);
             IInteractable tempInteractableObj = hit.collider.GetComponent<IInteractable>();
-            Debug.Log(hit.collider.transform.gameObject.name + "detected");
             if (tempInteractableObj != null)
             {
                 if (interactableObj == null)

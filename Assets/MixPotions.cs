@@ -1,61 +1,61 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Yarn.Unity;
+
 [System.Serializable]
 public class Potion
 {
-    public string[] ingredients;
+    public Items.Ingredient[] ingredients1;
     public GameObject gameObject;
 }
 public class MixPotions : MonoBehaviour
 {
+    public GameEvent cantMix;
     public Potion[] PotionRecipes;
     public GameEvent mixedPotionsRight;
-    public string[] concotionPassword = { "blue", "green", "yellow" };
     public Pedestal[] pedestals;
     bool madePotion = false;
-    public string[] getPedestalIngredients(Pedestal[] pedistals)
+    public Items.Ingredient[] getPedestalIngredients(Pedestal[] pedistals)
     {
-        string[] ingredients = new string[3];
+        Items.Ingredient[] ingredients = new Items.Ingredient[3];
+        // string[] ingredients = new string[3];
         for (int i = 0; i < pedistals.Length; i++)
         {
-            ingredients[i] += pedistals[i].placedObject.name;
+            ingredients[i] = pedistals[i].placedObject.GetComponent<PickUp>().ingredientName;
         }
         return ingredients;
     }
 
-    bool CheckMatchingPotionHelper(Potion potion, string[] ingredients)
+    bool CheckMatchingPotionHelper(Potion potion, Items.Ingredient[] ingredients)
     {
-        List<string> list = new List<string>();
-        for (int i = 0; i < potion.ingredients.Length; i++)
+        List<Items.Ingredient> list = new List<Items.Ingredient>();
+        for (int i = 0; i < potion.ingredients1.Length; i++)
         {
-            list.Add(potion.ingredients[i]);
+            list.Add(potion.ingredients1[i]);
         }
-        foreach (string ingredient in ingredients)
+        foreach (Items.Ingredient ingredient in ingredients)
         {
-            for (int i = 0; i < potion.ingredients.Length; i++)
-            {
-                if (ingredient.ToLower() == potion.ingredients[i])
-                {
-                    list.Remove(ingredient);
-                }
-            }
+            if (list.Contains(ingredient)) list.Remove(ingredient);
         }
-        if (list.Count == 0)
-        {
-            mixedPotionsRight.Raise();
-            return true;
-        }
+        if (list.Count == 0) return true;
         else return false;
 
     }
-
+    [YarnCommand("CheckFull")]
     public bool ArePedestalesFull()
     {
+        
         foreach (Pedestal pedestal in pedestals)
         {
-            if (pedestal.placedObject == null) return false;
+            if (pedestal.placedObject == null)
+            {
+
+                FindObjectOfType<DialogueRunner>().variableStorage.SetValue("$enoughIngredients", false);
+                return false;
+            }
         }
+        FindObjectOfType<DialogueRunner>().variableStorage.SetValue("$enoughIngredients", true);
         return true;
     }
     public void SpawnPotion(GameObject potion)
@@ -63,55 +63,46 @@ public class MixPotions : MonoBehaviour
         potion.SetActive(true);
 
     }
+    public void ClearPotions()
+    {
 
+        foreach (Pedestal pedestal in pedestals)
+        {
+            if (pedestal.placedObject != null) Destroy(pedestal.placedObject);
+        }
+    }
+
+
+    [YarnCommand("MixPotion")]
     public bool CheckMatchingPotion()
     {
-        if (!ArePedestalesFull()) return false;
+        Debug.Log("HELLO IM IN CHECKING Match potion");
+        if (!ArePedestalesFull())
+        {
+            cantMix.Raise();
+            return false;
+        }
         for (int i = 0; i < PotionRecipes.Length; i++)
         {
             if (CheckMatchingPotionHelper(PotionRecipes[i], getPedestalIngredients(pedestals)))
             {
                 SpawnPotion(PotionRecipes[i].gameObject);
+                ClearPotions();
+                return true;
             }
         }
-        return true;
+        return false;
     }
-
-    // public bool CheckCorrectConcoction()
-    // {
-    //     List<string> list = new List<string>();
-    //     for (int i = 0; i < concotionPassword.Length; i++)
-    //     {
-    //         list.Add(concotionPassword[i]);
-    //     }
-    //     foreach (Pedestal pedestal in pedestals)
-    //     {
-    //         if (pedestal.placedObject == null) return false;
-    //         for (int i = 0; i < list.Count; i++)
-    //         {
-    //             if (pedestal.placedObject.name.ToLower() == list[i].ToLower())
-    //             {
-    //                 list.Remove(list[i]);
-    //             }
-    //         }
-    //     }
-    //     if (list.Count == 0)
-    //     {
-    //         mixedPotionsRight.Raise();
-    //         return true;
-    //     }
-    //     else return false;
-    // }
-
-    // Update is called once per frame
     void Update()
     {
-        if(!madePotion)
-        {
-            if(CheckMatchingPotion()){
-                madePotion = true;
-            }
+        // if (!madePotion)
+        // {
+        //     if (CheckMatchingPotion())
+        //     {
+        //         madePotion = true;
+        //         ClearPotions();
+        //     }
 
-        }
+        // }
     }
 }

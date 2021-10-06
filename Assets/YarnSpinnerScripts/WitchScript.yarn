@@ -1,0 +1,29 @@
+title: Sophie.Welcome
+---
+Mae: Hi
+<<CheckFull witch>>
+[[Sophie.Test]]
+===
+
+title: Sophie.Mix
+---
+Okay, I'll mix them for you.
+
+<<MixPotion witch>>
+===
+title: Sophie.No
+---
+Oh, okay.
+===
+title: Sophie.CantMix
+---
+Sorry, you can't mix anything.
+===
+title: Sophie.Test
+---
+
+[[Nothing|Sophie.No]]
+<<if $enoughIngredients is true>>
+[[mixIngredients|Sophie.Mix]]
+<<endif>>
+===
