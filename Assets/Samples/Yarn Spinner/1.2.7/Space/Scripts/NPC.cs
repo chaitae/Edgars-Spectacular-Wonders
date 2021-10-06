@@ -47,6 +47,7 @@ namespace Yarn.Unity.Example
         public string characterName = "";
         public string defaultTalkNode = "";
         bool listening = false;
+        bool characterNear = false;
 
         [Header("Optional")]
         public YarnProgram scriptToLoad;
@@ -54,6 +55,7 @@ namespace Yarn.Unity.Example
         public void CharacterEnter(CharacterControls characterControls)
         {
             characterControls.canUseObject = false;
+            
         }
 
         public void CharacterExit(CharacterControls characterControls)
@@ -81,23 +83,23 @@ namespace Yarn.Unity.Example
         }
         string CheckEventsTriggered()
         {
-            if(gameEventDialogueNodes.Count == 0) return "";
-            for(int i = gameEventDialogueNodes.Count-1; i >=0 ;i--)
+            if (gameEventDialogueNodes.Count == 0) return "";
+            for (int i = gameEventDialogueNodes.Count - 1; i >= 0; i--)
             {
-                if(gameEventDialogueNodes[i].gameEvent.eventRaised)
+                if (gameEventDialogueNodes[i].gameEvent.eventRaised)
                 {
                     return gameEventDialogueNodes[i].dialogueNode;
                 }
             }
             return "";
         }
-        public void Interact(CharacterControls characterControls)
+        public void Interact(CharacterControls characterControls,KeyCode keyCode)
         {
             DialogueRunner dialogueRunner = FindObjectOfType<DialogueRunner>();
             if (dialogueRunner.IsDialogueRunning) return;
 
             string talkNodetoUse = defaultTalkNode;
-            if(CheckEventsTriggered() != "") talkNodetoUse = CheckEventsTriggered();
+            if (CheckEventsTriggered() != "") talkNodetoUse = CheckEventsTriggered();
             if (characterControls.equippedObject != null)
             {
                 if (CheckPlayerShowingKeyDialogueItem(characterControls.equippedObject.name) != "")
@@ -113,6 +115,9 @@ namespace Yarn.Unity.Example
             dialogueRunner = FindObjectOfType<DialogueRunner>();
             listening = true;
             dialogueRunner.onDialogueComplete.AddListener(() => EnableMovement(characterControls));
+            dialogueRunner.onDialogueComplete.AddListener(() =>  UIManager._instance.ContinueCheckingForNearInteractable());
+            UIManager._instance.StopCheckingForNearInteractable();
+            UIManager._instance.HideInteractionText();
         }
         void EnableMovement(CharacterControls characterControls)
         {

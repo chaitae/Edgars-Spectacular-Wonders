@@ -8,6 +8,9 @@ public class CharacterControls : MonoBehaviour
     public GameObject equippedObject;
     [SerializeField]
     private float raycastDistance = 2f;
+    public delegate void GeneralFunction();
+    public static GeneralFunction OnNearInteractable;
+    public static GeneralFunction OnLeaveInteractable;
     private CharacterController controller;
     IInteractable interactableObj;
     public bool canUseObject = true;
@@ -18,7 +21,6 @@ public class CharacterControls : MonoBehaviour
     public float playerSpeed = 2.0f;
     private float gravityValue = -9.81f;
 
-    int dontMoveCount = 0;
 
     void Awake()
     {
@@ -38,6 +40,7 @@ public class CharacterControls : MonoBehaviour
     {
         this.canMove = canMove;
     }
+
     void FixedUpdate()
     {
 
@@ -61,10 +64,12 @@ public class CharacterControls : MonoBehaviour
                     interactableObj.CharacterExit(this);
 
                 }
+                if(OnNearInteractable!=null) OnNearInteractable();
             }
         }
         else
         {
+            if(OnLeaveInteractable != null) OnLeaveInteractable();
             if (interactableObj != null)
                 interactableObj.CharacterExit(this);
             interactableObj = null;
@@ -85,6 +90,7 @@ public class CharacterControls : MonoBehaviour
         equippedObject = gameObject;
         equippedObject.transform.parent = holdGameObjectPosition.transform;
         equippedObject.transform.localPosition = Vector3.zero;
+        if(equippedObject.GetComponent<SpecialNPC>() !=null)equippedObject.GetComponent<SpecialNPC>().HideSpecial();
         Debug.Log("Picked up:" + equippedObject);
         StartCoroutine("PickUpHelper");
     }
@@ -107,7 +113,11 @@ public class CharacterControls : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.E) && interactableObj != null)
             {
-                interactableObj.Interact(this);
+                interactableObj.Interact(this, KeyCode.E);
+            }       
+            else if (Input.GetKeyDown(KeyCode.T) && interactableObj != null)
+            {
+                interactableObj.Interact(this, KeyCode.T);
             }
 
             if (equippedObject != null && Input.GetKeyDown(KeyCode.E) && canUseObject)

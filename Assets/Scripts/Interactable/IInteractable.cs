@@ -4,8 +4,8 @@ using UnityEngine;
 
 public interface IInteractable 
 {
-    void Interact(CharacterControls characterControls);
-    void CharacterEnter(CharacterControls characterControls);
-    void CharacterExit(CharacterControls characterControls);
-    void EquippedAction(CharacterControls characterControls);
+    void Interact(CharacterControls _characterControls, KeyCode keyCode);
+    void CharacterEnter(CharacterControls _characterControls);
+    void CharacterExit(CharacterControls _characterControls);
+    void EquippedAction(CharacterControls _characterControls);
 }

@@ -54,7 +54,10 @@
      <Compile Include="Assets\Scripts\Interactable\Pedestal.cs" />
      <Compile Include="Assets\Scripts\Interactable\PickUp.cs" />
      <Compile Include="Assets\Scripts\Interactable\Shovel.cs" />
+     <Compile Include="Assets\Scripts\Interactable\SpecialNPC.cs" />
      <Compile Include="Assets\Scripts\Password.cs" />
+     <Compile Include="Assets\TeaPartySeating.cs" />
+     <Compile Include="Assets\UIManager.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

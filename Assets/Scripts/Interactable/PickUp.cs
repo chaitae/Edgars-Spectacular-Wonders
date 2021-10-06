@@ -6,13 +6,16 @@ public class PickUp : MonoBehaviour, IInteractable
 {
     public void CharacterEnter(CharacterControls characterControls)
     {
+        UIManager._instance.ShowInteractionText();
     }
 
     public void CharacterExit(CharacterControls characterControls)
     {
+        UIManager._instance.HideInteractionText();
+
     }
 
-    public void Interact(CharacterControls characterControls)
+    public void Interact(CharacterControls characterControls,KeyCode keyCode)
     {
         if (characterControls.equippedObject == null)
         {

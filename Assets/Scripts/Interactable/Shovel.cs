@@ -4,26 +4,29 @@ using UnityEngine;
 
 public class Shovel : MonoBehaviour, IInteractable
 {
-    CharacterControls characterControls1;
+    CharacterControls characterControls;
     bool equipped = false;
-    public void CharacterEnter(CharacterControls characterControls)
+    public void CharacterEnter(CharacterControls _characterControls)
     {
+        UIManager._instance.ShowInteractionText();
+
     }
 
-    public void CharacterExit(CharacterControls characterControls)
+    public void CharacterExit(CharacterControls _characterControls)
     {
+        UIManager._instance.HideInteractionText();
     }
 
-    public void EquippedAction(CharacterControls characterControls)
+    public void EquippedAction(CharacterControls _characterControls)
     {
         RaycastHit hit;
         // Does the ray intersect any objects excluding the player layer
-        if (Physics.Raycast(characterControls.transform.position - transform.lossyScale.y * .75f * Vector3.up, -transform.up, out hit, Mathf.Infinity))
+        if (Physics.Raycast(_characterControls.transform.position - transform.lossyScale.y * .75f * Vector3.up, -transform.up, out hit, Mathf.Infinity))
         {
             if (hit.collider.gameObject.GetComponent<IDiggable>() != null)
             {
                 IDiggable diggable = hit.collider.GetComponent<IDiggable>();
-                if(diggable != null) diggable.Dig();
+                if (diggable != null) diggable.Dig();
             }
         }
         else
@@ -31,24 +34,24 @@ public class Shovel : MonoBehaviour, IInteractable
         }
     }
 
-    public void Interact(CharacterControls characterControls)
+    public void Interact(CharacterControls _characterControls,KeyCode keyCode)
     {
         Debug.Log("interacted shovel");
-        if (characterControls.equippedObject == null)
+        if (_characterControls.equippedObject == null)
         {
             equipped = true;
-            characterControls.PickUp(gameObject);
+            _characterControls.PickUp(gameObject);
             GetComponent<Rigidbody>().isKinematic = true;
-            characterControls1 = characterControls;
+            characterControls = _characterControls;
 
         }
     }
     void Update()
     {
-        if(equipped && Input.GetKeyDown(KeyCode.X))
+        if (equipped && Input.GetKeyDown(KeyCode.X))
         {
-            characterControls1.Drop();
-            characterControls1 = null;
+            characterControls.Drop();
+            characterControls = null;
             equipped = false;
         }
     }
