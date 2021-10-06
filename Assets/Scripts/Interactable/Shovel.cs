@@ -48,6 +48,11 @@ public class Shovel : MonoBehaviour, IInteractable
     }
     void Update()
     {
+        if(equipped)
+        {
+            // UIManager._instance.
+            UIManager._instance.ShowSpecialInteraction();
+        }
         if (equipped && Input.GetKeyDown(KeyCode.X))
         {
             characterControls.Drop();

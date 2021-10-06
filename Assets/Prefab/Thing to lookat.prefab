@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6355006836257683320}
   - component: {fileID: 6355006836257683323}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: LookAtScript
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -108,6 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cinemachineVirtualCamera: {fileID: 6355006836726440472}
+  hidePlayerOnView: 0
 --- !u!54 &6355006836257683323
 Rigidbody:
   m_ObjectHideFlags: 0

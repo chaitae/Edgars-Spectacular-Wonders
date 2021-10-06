@@ -4,23 +4,32 @@ using UnityEngine;
 using Cinemachine;
 public class LookAt : MonoBehaviour, IInteractable
 {
+    public delegate void GeneralFunction();
+    public event GeneralFunction OnLookAt;
+    public event GeneralFunction OnLookAway;
     public CinemachineVirtualCamera cinemachineVirtualCamera;
     CharacterControls characterControls;
     public bool hidePlayerOnView = false;
     bool playerLooking = false;
+
+    public void ExitLook()
+    {
+
+        playerLooking = false;
+        cinemachineVirtualCamera.Priority = 1;
+        characterControls.SetMovement(true, "Lookat");
+        characterControls.canUseObject = true;
+        UIManager._instance.ContinueCheckingForNearInteractable();
+        Camera.main.cullingMask = ~0;
+        if (OnLookAway != null) OnLookAway();
+    }
     void Update()
     {
         if (playerLooking)
         {
             if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.X))
             {
-                playerLooking = false;
-                cinemachineVirtualCamera.Priority = 1;
-                characterControls.SetMovement(true, "Lookat");
-                characterControls.canUseObject = true;
-                UIManager._instance.ContinueCheckingForNearInteractable();
-                Camera.main.cullingMask = ~0;
-
+                ExitLook();
             }
         }
 
@@ -43,6 +52,7 @@ public class LookAt : MonoBehaviour, IInteractable
 
     public void Interact(CharacterControls _characterControls, KeyCode keyCode)
     {
+        if (OnLookAt != null) OnLookAt();
         Debug.Log("look at button");
         _characterControls.canUseObject = false;
         cinemachineVirtualCamera.Priority = 100;

@@ -64,7 +64,7 @@ public class Pedestal : MonoBehaviour, IInteractable
                 placedObject.GetComponent<SpecialNPC>().ShowSpecial();
             }
         }
-        else if (keyCode != KeyCode.T && characterControls.equippedObject == null) //pickup code
+        else if (keyCode != KeyCode.T && characterControls.equippedObject == null && allowPickUp) //pickup code
         {
             if (placedObject != null)
                 characterControls.PickUp(placedObject);

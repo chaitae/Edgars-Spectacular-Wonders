@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TeaPartySeating : MonoBehaviour
 {
+    public GameEvent  gameEvent;
     public Pedestal[] pedestals;
     bool isSeatedWell = false;
 
@@ -113,7 +114,8 @@ public class TeaPartySeating : MonoBehaviour
     {
         foreach(Pedestal pedestal in pedestals)
         {
-            pedestal.enabled = false;
+            pedestal.allowPickUp = false;
+            // pedestal.enabled = false;
         }
     }
     // Update is called once per frame
@@ -122,6 +124,8 @@ public class TeaPartySeating : MonoBehaviour
         if(CheckSeating()  && !isSeatedWell)
         {
             isSeatedWell = true;
+            OnSeatedWell();
+            gameEvent.Raise();
         }
     }
 }
