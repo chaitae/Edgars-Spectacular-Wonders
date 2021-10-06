@@ -16,7 +16,6 @@ public class PickUp : MonoBehaviour, IInteractable
 
     public void CharacterExit(CharacterControls characterControls)
     {
-        characterControls1 = null;
         UIManager._instance.HideInteractionText();
 
     }
@@ -39,6 +38,7 @@ public class PickUp : MonoBehaviour, IInteractable
             }
             else
             {
+                characterControls1 = characterControls;
                 characterControls.PickUp(gameObject);
             }
 

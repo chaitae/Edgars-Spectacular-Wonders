@@ -1,0 +1,25 @@
+title: Statue.Awakened
+---
+Mae: Thank you for fixing me
+<<RaiseGameEvent Managers Unstatue>>
+===
+
+title: Cube
+tags: 
+colorID: 0
+position: 827,439
+---
+Sally: I don't like that cube #line:d7df49
+===
+
+title: Potion
+---
+Sally: You use the potion on the statue.
+<<RaiseEvent Unstatued>>
+===
+
+title: Statue
+---
+statue: ...This statue is frieghtneing.
+===
+

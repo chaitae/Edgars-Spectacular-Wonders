@@ -8,6 +8,7 @@ public class CharacterControls : MonoBehaviour
     public GameObject equippedObject;
     [SerializeField]
     private float raycastDistance = 2f;
+    public Animator animator;
     public delegate void GeneralFunction();
     public static GeneralFunction OnNearInteractable;
     public static GeneralFunction OnLeaveInteractable;
@@ -41,6 +42,11 @@ public class CharacterControls : MonoBehaviour
     public void SetMovement(bool canMove, string classname)
     {
         this.canMove = canMove;
+        if(canMove == false)
+        {
+            
+            animator.SetBool("isRunning",false);
+        }
     }
 
     void FixedUpdate()
@@ -102,6 +108,12 @@ public class CharacterControls : MonoBehaviour
         if (move != Vector3.zero)
         {
             gameObject.transform.forward = move;
+            animator.SetBool("isRunning",true);
+        }
+        else
+        {
+
+            animator.SetBool("isRunning",false);
         }
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);

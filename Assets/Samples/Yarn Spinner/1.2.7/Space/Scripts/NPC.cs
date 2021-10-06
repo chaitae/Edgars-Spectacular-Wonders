@@ -41,6 +41,7 @@ namespace Yarn.Unity.Example
     }
     public class NPC : MonoBehaviour, IInteractable
     {
+        
         public List<GameEventDialogueNode> gameEventDialogueNodes = new List<GameEventDialogueNode>();
         DialogueUI dialogueUI;
         public List<string> ItemTalkNodes;
@@ -52,19 +53,7 @@ namespace Yarn.Unity.Example
 
         [Header("Optional")]
         public YarnProgram scriptToLoad;
-        public void StartDialogue(string str)
-        {
-
-            DialogueRunner dialogueRunner = FindObjectOfType<DialogueRunner>();
-            dialogueRunner.StopAllCoroutines();
-            dialogueRunner.StartDialogue(str);
-            characterControls1.SetMovement(false, "NPC");
-            listening = true;
-            dialogueRunner.onDialogueComplete.AddListener(() => EnableMovement(characterControls1));
-            dialogueRunner.onDialogueComplete.AddListener(() => UIManager._instance.ContinueCheckingForNearInteractable());
-            UIManager._instance.StopCheckingForNearInteractable();
-            UIManager._instance.HideInteractionText();
-        }
+    
         public void CharacterEnter(CharacterControls characterControls)
         {
             characterControls1 = characterControls;
