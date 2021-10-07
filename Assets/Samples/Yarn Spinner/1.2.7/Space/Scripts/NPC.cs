@@ -58,6 +58,7 @@ namespace Yarn.Unity.Example
         {
             characterControls1 = characterControls;
             characterControls.canUseObject = false;
+            UIManager._instance.ShowInteractionText();
 
         }
 
@@ -65,6 +66,8 @@ namespace Yarn.Unity.Example
         {
             characterControls1 = null;
             characterControls.canUseObject = true;
+            
+            UIManager._instance.HideInteractionText();
         }
 
         public void EquippedAction(CharacterControls characterControls)
