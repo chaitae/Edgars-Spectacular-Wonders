@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Yarn.Unity;
 
 public class DialogueCommands : MonoBehaviour
@@ -14,6 +15,10 @@ public class DialogueCommands : MonoBehaviour
         dialogueRunner = FindObjectOfType<DialogueRunner>();
 
         dialogueRunner.AddCommandHandler(
+            "ChangeScene",
+            ChangeScene
+        );
+        dialogueRunner.AddCommandHandler(
             "RaiseEvent",
             RaiseGameEvent
         );
@@ -22,6 +27,11 @@ public class DialogueCommands : MonoBehaviour
             "camera_look",     // the name of the command
             CameraLookAtTarget // the method to run
         );
+    }
+    
+    void ChangeScene(string[] parameters)
+    {
+        SceneManager.LoadScene(parameters[0]);
     }
     void RaiseGameEvent(string[] parameters)
     {

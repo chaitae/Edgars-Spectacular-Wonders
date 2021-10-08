@@ -15,6 +15,7 @@ public class Password : MonoBehaviour
     [YarnCommand("OpenPassword")]
     public void OpenPasswordScreen()
     {
+        // UIManager._instance.ShowHintText("Press escape to leave password entry");
         ui.SetActive(true);
         myinputfield.Select();
         myinputfield.ActivateInputField();
@@ -22,6 +23,7 @@ public class Password : MonoBehaviour
     }
     public void HidePasswordScreen()
     {
+        // UIManager._instance.HideHint();
         ui.SetActive(false);
         CharacterControls characterControl = FindObjectOfType<CharacterControls>();
         characterControl.SetMovement(true, "ClosePassword");

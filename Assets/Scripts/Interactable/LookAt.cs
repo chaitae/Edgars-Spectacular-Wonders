@@ -16,6 +16,7 @@ public class LookAt : MonoBehaviour, IInteractable
     public void ExitLook()
     {
 
+        UIManager._instance.HideHint();
         playerLooking = false;
         cinemachineVirtualCamera.Priority = 1;
         characterControls.SetMovement(true, "Lookat");
@@ -28,7 +29,7 @@ public class LookAt : MonoBehaviour, IInteractable
     {
         if (playerLooking)
         {
-            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.X))
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.E))
             {
                 ExitLook();
             }
@@ -39,6 +40,7 @@ public class LookAt : MonoBehaviour, IInteractable
     public void CharacterEnter(CharacterControls _characterControls)
     {
         UIManager._instance.ShowInteractionText();
+        UIManager._instance.ChangeInteractionText("Press T to look");
     }
 
     public void CharacterExit(CharacterControls _characterControls)
@@ -53,21 +55,29 @@ public class LookAt : MonoBehaviour, IInteractable
 
     public void Interact(CharacterControls _characterControls, KeyCode keyCode)
     {
-        if (OnLookAt != null) OnLookAt();
-        Debug.Log("look at button");
-        _characterControls.canUseObject = false;
-        cinemachineVirtualCamera.Priority = 100;
-        _characterControls.SetMovement(false, " Look at set false");
-        playerLooking = true;
-        characterControls = _characterControls;
-        UIManager._instance.StopCheckingForNearInteractable();
-        UIManager._instance.HideInteractionText();
-        if (hidePlayerOnView)
+        if (keyCode == KeyCode.T)
         {
-            Camera.main.cullingMask = ~LayerMask.GetMask("Player");
+
+            if (OnLookAt != null) OnLookAt();
+            Debug.Log("look at button");
+            _characterControls.canUseObject = false;
+            cinemachineVirtualCamera.Priority = 100;
+            _characterControls.SetMovement(false, " Look at set false");
+            playerLooking = true;
+            characterControls = _characterControls;
+            UIManager._instance.StopCheckingForNearInteractable();
+            UIManager._instance.HideInteractionText();
+            UIManager._instance.ShowHintText("Press E to escape view");
+            if (hidePlayerOnView)
+            {
+                Camera.main.cullingMask = ~LayerMask.GetMask("Player");
+            }
         }
 
     }
+
+
+
 
 
 }

@@ -9,6 +9,7 @@ public class Shovel : MonoBehaviour, IInteractable
     public void CharacterEnter(CharacterControls _characterControls)
     {
         UIManager._instance.ShowInteractionText();
+        UIManager._instance.ChangeInteractionText("Press E to pick up");
 
     }
 
@@ -25,36 +26,58 @@ public class Shovel : MonoBehaviour, IInteractable
         {
             if (hit.collider.gameObject.GetComponent<IDiggable>() != null)
             {
+                Debug.Log("hit floor");
                 IDiggable diggable = hit.collider.GetComponent<IDiggable>();
                 if (diggable != null) diggable.Dig();
+                Debug.Log("equipped aciton happened");
             }
         }
         else
         {
         }
     }
+    void CheckDiggables()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(characterControls.transform.position - transform.lossyScale.y * .75f * Vector3.up, -transform.up, out hit, Mathf.Infinity))
+        {
+            if (hit.collider.gameObject.GetComponent<IDiggable>() != null)
+            {
+                UIManager._instance.ShowSpecialInteraction();
+                UIManager._instance.ChangeSpecialInteractionText("Press E to dig");
+            }
 
-    public void Interact(CharacterControls _characterControls,KeyCode keyCode)
+            else
+            {
+                // UIManager._instance.HideSpecialInteraction();
+                UIManager._instance.ChangeSpecialInteractionText("Press X to drop shovel");
+            }
+        }
+    }
+
+    public void Interact(CharacterControls _characterControls, KeyCode keyCode)
     {
         Debug.Log("interacted shovel");
         if (_characterControls.equippedObject == null)
         {
+
+            UIManager._instance.ShowSpecialInteraction();
             equipped = true;
             _characterControls.PickUp(gameObject);
-            GetComponent<Rigidbody>().isKinematic = true;
             characterControls = _characterControls;
 
         }
     }
     void Update()
     {
-        if(equipped)
+        if (equipped)
         {
-            // UIManager._instance.
-            UIManager._instance.ShowSpecialInteraction();
+            CheckDiggables();
         }
         if (equipped && Input.GetKeyDown(KeyCode.X))
         {
+
+            UIManager._instance.HideSpecialInteraction();
             characterControls.Drop();
             characterControls = null;
             equipped = false;

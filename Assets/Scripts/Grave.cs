@@ -6,9 +6,13 @@ public class Grave : MonoBehaviour,IDiggable
 {
     public GameObject treasure;
     public GameObject treasureLandingPosition;
+    public GameObject dugGraveMesh;
+    public GameObject graveMesh;
     public void Dig()
     {
         Debug.Log("I'm digging");
+        graveMesh.SetActive(false);
+        dugGraveMesh.SetActive(true);
         if(treasure != null )
         {
             treasure.SetActive(true);

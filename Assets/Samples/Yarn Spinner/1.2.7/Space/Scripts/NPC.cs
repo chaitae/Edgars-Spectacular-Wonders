@@ -56,14 +56,18 @@ namespace Yarn.Unity.Example
     
         public void CharacterEnter(CharacterControls characterControls)
         {
+            characterNear = true;
             characterControls1 = characterControls;
             characterControls.canUseObject = false;
             UIManager._instance.ShowInteractionText();
+            UIManager._instance.ChangeInteractionText("Press e to talk");
 
         }
 
         public void CharacterExit(CharacterControls characterControls)
         {
+            
+            characterNear = false;
             characterControls1 = null;
             characterControls.canUseObject = true;
             
@@ -115,8 +119,6 @@ namespace Yarn.Unity.Example
             }
 
             dialogueRunner.StartDialogue(talkNodetoUse);
-
-
             characterControls.SetMovement(false, "NPC");
             dialogueRunner = FindObjectOfType<DialogueRunner>();
             listening = true;
@@ -141,6 +143,8 @@ namespace Yarn.Unity.Example
         }
         void Update()
         {
+            // if(characterNear)
+            // transform.LookAt(this.transform.position- characterControls1.transform.position);
             if (listening)
             {
                 if (Input.GetKeyDown(KeyCode.Space))

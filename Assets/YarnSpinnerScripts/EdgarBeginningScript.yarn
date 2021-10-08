@@ -1,4 +1,30 @@
 title: Edgar.Welcome
 ---
 Edgar: Psst. Hey kid. You want to get some real candy?
+-> What kind of candy?
+    Edgar: What kind of Candy!? The good kind! Do you want to come or not?
+    [[I don't know.. | Edgar.IDontKnow]]
+    [[Okay! | Edgar.Okay]]
+-> I'm not supposed to talk to strangers
+    Edgar: I'm not a stranger. I'm just a friend you haven't met yet.
+    [[I don't know.. | Edgar.IDontKnow]]
+===
+title: Edgar.IDontKnow
+---
+Edgar: C'mon. Don't you want to make this your best halloween ever?
+[[Okay.|Edgar.Okay]]
+[[I don't think so. | Edgar.No]]
+===
+title: Edgar.Edgarthatstheticket
+---
+Edgar: That's the ticket! Come into my tent!
+===
+title: Edgar.No
+---
+Edgar: Well. That's your loss.
+===
+title: Edgar.Okay
+---
+Edgar: Good. Good! Now lets go!
+<<ChangeScene EdgarWorld>>
 ===
