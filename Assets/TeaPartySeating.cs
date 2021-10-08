@@ -4,10 +4,22 @@ using UnityEngine;
 
 public class TeaPartySeating : MonoBehaviour
 {
-    public GameEvent  gameEvent;
+    public GameEvent gameEvent;
     public Pedestal[] pedestals;
-    bool isSeatedWell = false;
+    public bool isSeatedWell = false;
 
+    [ContextMenu("Set ghosts")]
+    public void SetGhostSeating()
+    {
+        pedestals[0].placedObject = GameObject.Find("E");
+        pedestals[1].placedObject = GameObject.Find("B");
+        pedestals[2].placedObject = GameObject.Find("C");
+        pedestals[3].placedObject = GameObject.Find("G");
+        pedestals[4].placedObject = GameObject.Find("A");
+        pedestals[5].placedObject = GameObject.Find("F");
+        pedestals[6].placedObject = GameObject.Find("D");
+        pedestals[7].placedObject = GameObject.Find("H");
+    }
     bool isNearPerson(int index, string personName)
     {
         if (index == 0)
@@ -56,8 +68,8 @@ public class TeaPartySeating : MonoBehaviour
     {
         bool isGoodSeating = true;
         for (int i = 0; i < pedestals.Length; i++)
-        {   
-            if(pedestals[i].placedObject == null) return false;
+        {
+            if (pedestals[i].placedObject == null) return false;
             Debug.Log(pedestals.Length);
 
             if (pedestals[i].placedObject.name.ToLower() == "F")
@@ -90,42 +102,35 @@ public class TeaPartySeating : MonoBehaviour
             }
             if (pedestals[i].placedObject.name.ToLower() == "F")
             {
-               if(!isNearTea(i)) return false;
+                if (!isNearTea(i)) return false;
             }
-            if(pedestals[i].placedObject.name.ToLower() == "G")
+            if (pedestals[i].placedObject.name.ToLower() == "G")
             {
-                if(!(isNearPerson(i,"A") && isNearPerson(i,"C")))
+                if (!(isNearPerson(i, "A") && isNearPerson(i, "C")))
                 {
                     return false;
                 }
             }
-            if(pedestals[i].placedObject.name.ToLower() == "H")
+            if (pedestals[i].placedObject.name.ToLower() == "H")
             {
-                if(!isNearPerson(i,"D"))
+                if (!isNearPerson(i, "D"))
                 {
                     return false;
                 }
             }
         }
-        if(pedestals.Length <= 0) isGoodSeating = false;
+        if (pedestals.Length <= 0) isGoodSeating = false;
         return isGoodSeating;
     }
-    void OnSeatedWell()
-    {
-        foreach(Pedestal pedestal in pedestals)
-        {
-            pedestal.allowPickUp = false;
-            // pedestal.enabled = false;
-        }
-    }
+
     // Update is called once per frame
     void Update()
     {
-        if(CheckSeating()  && !isSeatedWell)
+        if (CheckSeating() && !isSeatedWell)
         {
             isSeatedWell = true;
-            OnSeatedWell();
-            gameEvent.Raise();
+           gameEvent.Raise();
+
         }
     }
 }
