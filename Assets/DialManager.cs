@@ -28,14 +28,20 @@ public class DialManager : MonoBehaviour
         //UIManager._instance.ShowHintText("Press a or d to select dials");
         isPlayerLooking = true;
         dials[0].isDialSelected = true;
+        dialIndex = 0;
+        dials[dialIndex].isDialSelected = false;
+        dialIndex--;
+        if (dialIndex == -1) dialIndex = dials.Length - 1;
+        dials[dialIndex].isDialSelected = true;
+        dials[dialIndex].OutlineObject();
     }
     void DeactivateListenControls()
     {
-        
+
         uiTips.SetActive(false);
         UIManager._instance.HideHint();
         isPlayerLooking = false;
-        for(int i =0; i< dials.Length;i++)
+        for (int i = 0; i < dials.Length; i++)
         {
             dials[i].isDialSelected = false;
         }
@@ -62,7 +68,7 @@ public class DialManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.A))
             {
-                
+
                 dials[dialIndex].NoOutlineObject();
                 dials[dialIndex].isDialSelected = false;
                 dialIndex--;

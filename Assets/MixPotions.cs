@@ -45,7 +45,7 @@ public class MixPotions : MonoBehaviour
     [YarnCommand("CheckFull")]
     public bool ArePedestalesFull()
     {
-        
+
         foreach (Pedestal pedestal in pedestals)
         {
             if (pedestal.placedObject == null)
@@ -88,9 +88,12 @@ public class MixPotions : MonoBehaviour
             {
                 SpawnPotion(PotionRecipes[i].gameObject);
                 ClearPotions();
+
                 return true;
             }
         }
+
+        ClearPotions();
         return false;
     }
     void Update()

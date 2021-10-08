@@ -41,6 +41,7 @@
      <Compile Include="Assets\DialManager.cs" />
      <Compile Include="Assets\Door.cs" />
      <Compile Include="Assets\MixPotions.cs" />
+     <Compile Include="Assets\Persistant.cs" />
      <Compile Include="Assets\Samples\Yarn Spinner\1.2.7\Space\Scripts\CameraFollow.cs" />
      <Compile Include="Assets\Samples\Yarn Spinner\1.2.7\Space\Scripts\MobileOnly.cs" />
      <Compile Include="Assets\Samples\Yarn Spinner\1.2.7\Space\Scripts\NPC.cs" />

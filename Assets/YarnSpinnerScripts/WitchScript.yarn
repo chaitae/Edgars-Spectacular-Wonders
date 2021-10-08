@@ -1,8 +1,8 @@
 title: Sophie.Welcome
 ---
-Mae: Hi
+Sophie: Hello! I can help you make potions if you gather ingredients, and place them on the pedestals beside me.
 <<CheckFull witch>>
-[[Sophie.Test]]
+[[Sophie.MixOption]]
 ===
 
 title: Sophie.Mix
@@ -19,10 +19,10 @@ title: Sophie.CantMix
 ---
 Sorry, you can't mix anything.
 ===
-title: Sophie.Test
+title: Sophie.MixOption
 ---
 
-[[Nothing|Sophie.No]]
+[[Nevermind|Sophie.No]]
 <<if $enoughIngredients is true>>
 [[mixIngredients|Sophie.Mix]]
 <<endif>>

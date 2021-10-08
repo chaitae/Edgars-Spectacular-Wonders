@@ -6,7 +6,12 @@ ModelImporter:
   - first:
       74: -203655887218126122
     second: IdleEdgar
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Emission
+    second: {fileID: 2100000, guid: 7277c47ad09123c419e9fe112e1bab74, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
