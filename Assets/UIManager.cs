@@ -51,6 +51,7 @@ public class UIManager : MonoBehaviour
     }
     public void ShowSpecialInteraction()
     {
+        // specialInteractionObject.SetActive(true);
         interactionTalkObject.SetActive(true);
     }
     public void HideSpecialInteraction()

@@ -8,6 +8,24 @@ public class Dial : MonoBehaviour
     public int[] dialPresets = { 0, -90, -180, -270 };
     public int dialRotationIndex = 0;
     public bool isDialSelected = false;
+
+    public MeshRenderer[] meshRenderers;
+
+    [ContextMenu("OutlineObject")]
+    public void OutlineObject()
+    {
+        meshRenderers[0].material.shader = Shader.Find("Outlined/Custom");
+        
+        meshRenderers[1].material.shader = Shader.Find("Outlined/Custom");
+    }
+    [ContextMenu("DeoutlineObject")]
+    public void NoOutlineObject()
+    {
+        meshRenderers[0].material.shader = Shader.Find("Standard");
+        
+        meshRenderers[1].material.shader = Shader.Find("Standard");
+
+    }
     public void SelectedDial()
     {
         isDialSelected = true;

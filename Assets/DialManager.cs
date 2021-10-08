@@ -11,7 +11,7 @@ public class DialManager : MonoBehaviour
     bool dialsCorrectPlacement = false;
     public LookAt lookAt;
     bool isPlayerLooking;
-
+    public GameObject uiTips;
     void OnEnable()
     {
         lookAt.OnLookAt += ActivateListenControls;
@@ -24,11 +24,16 @@ public class DialManager : MonoBehaviour
     }
     void ActivateListenControls()
     {
+        uiTips.SetActive(true);
+        //UIManager._instance.ShowHintText("Press a or d to select dials");
         isPlayerLooking = true;
         dials[0].isDialSelected = true;
     }
     void DeactivateListenControls()
     {
+        
+        uiTips.SetActive(false);
+        UIManager._instance.HideHint();
         isPlayerLooking = false;
         for(int i =0; i< dials.Length;i++)
         {
@@ -57,19 +62,23 @@ public class DialManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.A))
             {
+                
+                dials[dialIndex].NoOutlineObject();
                 dials[dialIndex].isDialSelected = false;
                 dialIndex--;
-                if (dialIndex == dials.Length) dialIndex = 0;
                 if (dialIndex == -1) dialIndex = dials.Length - 1;
                 dials[dialIndex].isDialSelected = true;
+                dials[dialIndex].OutlineObject();
 
             }
             if (Input.GetKeyDown(KeyCode.D))
             {
+                dials[dialIndex].NoOutlineObject();
                 dials[dialIndex].isDialSelected = false;
                 dialIndex++;
                 if (dialIndex == dials.Length) dialIndex = 0;
                 dials[dialIndex].isDialSelected = true;
+                dials[dialIndex].OutlineObject();
 
             }
             if (DialCorrectPositions() && !dialsCorrectPlacement)
