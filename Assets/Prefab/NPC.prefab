@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 246089370100853941}
   - component: {fileID: 246089370100853940}
   - component: {fileID: 246089370100853939}
-  - component: {fileID: 246089370100853943}
+  - component: {fileID: 590901354089358772}
   m_Layer: 0
   m_Name: NPC
   m_TagString: Untagged
@@ -49,7 +49,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 246089370100853938}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: afffa9c3745743a42a610c31f0db5cdd, type: 2}
+  - {fileID: 2100000, guid: 9ee98daaecfe64f46a791b7a1504d7fc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -95,7 +95,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &246089370100853943
+--- !u!114 &590901354089358772
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,9 +107,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3419b57eb638f44db88701b5b33b8af8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  talkNodes:
-  - Sally
-  - Sally.Exit
-  characterName: Sally
-  talkToNode: Sally
-  scriptToLoad: {fileID: 11400000, guid: 8b6ae1e8d32e840f0b3fd0b033e52253, type: 3}
+  gameEventDialogueNodes: []
+  ItemTalkNodes: []
+  characterName: 
+  defaultTalkNode: 
+  scriptToLoad: {fileID: 2480198943629176163, guid: f9fe082f69bd77d48ac64e71c1958189,
+    type: 3}

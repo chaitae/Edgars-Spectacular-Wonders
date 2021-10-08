@@ -1,12 +1,16 @@
 title: Edgar.Welcome
 ---
-Edgar: Psst. Hey kid. You want to get some real candy?
+Edgar: What is this!? Where are all the trick or treaters? I have the best Halloween setup on the block! 
+Hey you! Little bee, I see you there! Why don’t you feast your eyes on the most stunning Halloween show in town! Spooky spectacles!
+ Frightening fragrances! Neither in your wildest dreams, nor your most terrifying nightmares, have you experienced something so spectacular!
 -> What kind of candy?
-    Edgar: What kind of Candy!? The good kind! Do you want to come or not?
+    Edgar: Wizz Bangs and Palo Crisps, Mekko Sticks and King sized Choco-Hoops! How could you say no? Turn that pathetic stash of candy into a mountain of sugar and ditch these stingy neighbors!
     [[I don't know.. | Edgar.IDontKnow]]
     [[Okay! | Edgar.Okay]]
--> I'm not supposed to talk to strangers
-    Edgar: I'm not a stranger. I'm just a friend you haven't met yet.
+-> Why is nobody here?
+    Edgar: Nobody else here? Nonsense! They are... All already inside! You’re late! 
+    Yeah, you might miss the show, go on! Hurry! Here, take a Munchy Cone! 
+    Yes, it melted a little and I may have sat on it - don’t mind that, get going little bee!
     [[I don't know.. | Edgar.IDontKnow]]
 ===
 title: Edgar.IDontKnow
@@ -26,5 +30,13 @@ Edgar: Well. That's your loss.
 title: Edgar.Okay
 ---
 Edgar: Good. Good! Now lets go!
-<<ChangeScene EdgarWorld>>
+<<ChangeScene GraveYard>>
+===
+
+title: Edgar.GraveYard
+---
+Huh? You don't want to be here?
+You just got here!
+In time my little one! Once you complete my trials you may esca- I mean leave.
+<<RaiseEvent TalkEdgarGraveYard>>
 ===

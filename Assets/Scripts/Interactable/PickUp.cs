@@ -12,6 +12,7 @@ public class PickUp : MonoBehaviour, IInteractable
     {
         characterControls1 = characterControls;
         UIManager._instance.ShowInteractionText();
+        UIManager._instance.ChangeInteractionText("E to pick up item");
     }
 
     public void CharacterExit(CharacterControls characterControls)

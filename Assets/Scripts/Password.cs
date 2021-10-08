@@ -43,6 +43,10 @@ public class Password : MonoBehaviour
             HidePasswordScreen();
             gameEvent.Raise();
         }
+        else
+        {
+            myinputfield.text = "wrong password";
+        }
     }
     void Update()
     {
