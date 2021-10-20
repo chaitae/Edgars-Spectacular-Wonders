@@ -131,7 +131,7 @@ PrefabInstance:
     - target: {fileID: 1257949623553223599, guid: 0f2c8067a5d889046ac4ca3ed973572b,
         type: 3}
       propertyPath: m_text
-      value: 'Here lies Karl Engels. '
+      value: 'Here lies [C]arl Engels. '
       objectReference: {fileID: 0}
     - target: {fileID: 8149493988730116414, guid: 0f2c8067a5d889046ac4ca3ed973572b,
         type: 3}
@@ -662,7 +662,7 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 10
+  m_Priority: 11
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 1569263421}
   m_Follow: {fileID: 1569263421}
@@ -1205,7 +1205,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 0.45817015, g: 0.83748084, b: 0.9811321, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -2560,8 +2560,8 @@ PrefabInstance:
     - target: {fileID: 1257949623553223599, guid: 0f2c8067a5d889046ac4ca3ed973572b,
         type: 3}
       propertyPath: m_text
-      value: 'He devoted his life to the pursuit of truth, examining the most pressing
-        questions of human existen[C]e. He died impoverished and alone. '
+      value: 'He devoted his life to the pursuit of truth, examining the m[O]st pressing
+        questions of human existence. He died impoverished and alone. '
       objectReference: {fileID: 0}
     - target: {fileID: 8149493988730116414, guid: 0f2c8067a5d889046ac4ca3ed973572b,
         type: 3}

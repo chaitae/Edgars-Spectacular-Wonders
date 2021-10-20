@@ -23,6 +23,7 @@ public class CharacterControls : MonoBehaviour
     private float gravityValue = -9.81f;
 
     float raycastRatio = .5f;
+    public bool flipDirection = false;
 
 
     void Awake()
@@ -42,10 +43,10 @@ public class CharacterControls : MonoBehaviour
     public void SetMovement(bool canMove, string classname)
     {
         this.canMove = canMove;
-        if(canMove == false)
+        if (canMove == false)
         {
-            
-            animator.SetBool("isRunning",false);
+
+            animator.SetBool("isRunning", false);
         }
     }
 
@@ -71,12 +72,12 @@ public class CharacterControls : MonoBehaviour
                     interactableObj.CharacterExit(this);
 
                 }
-                if(OnNearInteractable!=null) OnNearInteractable();
+                if (OnNearInteractable != null) OnNearInteractable();
             }
         }
         else
         {
-            if(OnLeaveInteractable != null) OnLeaveInteractable();
+            if (OnLeaveInteractable != null) OnLeaveInteractable();
             if (interactableObj != null)
                 interactableObj.CharacterExit(this);
             interactableObj = null;
@@ -97,23 +98,27 @@ public class CharacterControls : MonoBehaviour
         equippedObject = gameObject;
         equippedObject.transform.parent = holdGameObjectPosition.transform;
         equippedObject.transform.localPosition = Vector3.zero;
-        if(equippedObject.GetComponent<SpecialNPC>() !=null)equippedObject.GetComponent<SpecialNPC>().HideSpecial();
+        if (equippedObject.GetComponent<SpecialNPC>() != null) equippedObject.GetComponent<SpecialNPC>().HideSpecial();
         Debug.Log("Picked up:" + equippedObject);
         StartCoroutine("PickUpHelper");
     }
     void Move()
     {
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        if (flipDirection)
+        {
+            move = new Vector3(-Input.GetAxis("Vertical"), 0, Input.GetAxis("Horizontal"));
+        }
         controller.Move(move * Time.deltaTime * playerSpeed);
         if (move != Vector3.zero)
         {
             gameObject.transform.forward = move;
-            animator.SetBool("isRunning",true);
+            animator.SetBool("isRunning", true);
         }
         else
         {
 
-            animator.SetBool("isRunning",false);
+            animator.SetBool("isRunning", false);
         }
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
@@ -128,7 +133,7 @@ public class CharacterControls : MonoBehaviour
             {
                 Debug.Log("calling interactableobj interact");
                 interactableObj.Interact(this, KeyCode.E);
-            }       
+            }
             else if (Input.GetKeyDown(KeyCode.T) && interactableObj != null)
             {
                 interactableObj.Interact(this, KeyCode.T);
