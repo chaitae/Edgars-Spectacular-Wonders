@@ -21,6 +21,7 @@ public class CharacterControls : MonoBehaviour
     [Range(2.0f, 5.0f)]
     public float playerSpeed = 2.0f;
     private float gravityValue = -9.81f;
+    float frontOffset = 2f;
 
     float raycastRatio = .5f;
     public bool flipDirection = false;
@@ -75,6 +76,46 @@ public class CharacterControls : MonoBehaviour
                 if (OnNearInteractable != null) OnNearInteractable();
             }
         }
+        else if (Physics.Raycast(transform.position - transform.lossyScale.y * .25f * Vector3.up, transform.forward, out hit, raycastDistance))
+        {
+            Debug.DrawRay(transform.position - transform.lossyScale.y * raycastRatio * Vector3.up, transform.forward * hit.distance, Color.yellow);
+            IInteractable tempInteractableObj = hit.collider.GetComponent<IInteractable>();
+            if (tempInteractableObj != null)
+            {
+                if (interactableObj == null)
+                {
+                    interactableObj = tempInteractableObj;
+                    interactableObj.CharacterEnter(this);
+                }
+                else if (tempInteractableObj != interactableObj)
+                {
+                    interactableObj = tempInteractableObj;
+                    interactableObj.CharacterExit(this);
+
+                }
+                if (OnNearInteractable != null) OnNearInteractable();
+            }
+        }
+        else if (Physics.Raycast(transform.position - transform.lossyScale.y * .75f * Vector3.up, transform.forward, out hit, raycastDistance))
+        {
+            Debug.DrawRay(transform.position - transform.lossyScale.y * raycastRatio * Vector3.up, transform.forward * hit.distance, Color.yellow);
+            IInteractable tempInteractableObj = hit.collider.GetComponent<IInteractable>();
+            if (tempInteractableObj != null)
+            {
+                if (interactableObj == null)
+                {
+                    interactableObj = tempInteractableObj;
+                    interactableObj.CharacterEnter(this);
+                }
+                else if (tempInteractableObj != interactableObj)
+                {
+                    interactableObj = tempInteractableObj;
+                    interactableObj.CharacterExit(this);
+
+                }
+                if (OnNearInteractable != null) OnNearInteractable();
+            }
+        }
         else
         {
             if (OnLeaveInteractable != null) OnLeaveInteractable();
@@ -83,10 +124,26 @@ public class CharacterControls : MonoBehaviour
             interactableObj = null;
         }
     }
+    Vector3 ReturnGroundInFront(GameObject gameObject)
+    {
+        Vector3 temp = this.transform.position + transform.forward;
+        RaycastHit hit;
+        // Does the ray intersect any objects excluding the player layer
+        Collider col = equippedObject.gameObject.GetComponent<Collider>();
+        if (Physics.Raycast(transform.position + transform.forward * frontOffset + Vector3.up * 3, -transform.up, out hit, raycastDistance))
+        {
+
+            Debug.DrawRay(transform.position + transform.forward * frontOffset, -transform.up * hit.distance, Color.yellow);
+            temp = new Vector3(hit.point.x, hit.point.y + col.bounds.min.y, hit.point.z);
+            // temp.y = hit.point.y+col.bounds.min.y;
+        }
+        return temp;
+    }
     public void Drop()
     {
         equippedObject.transform.parent = null;
-        equippedObject.transform.position = transform.position + transform.forward;
+
+        equippedObject.transform.position = ReturnGroundInFront(equippedObject);
         if (equippedObject.GetComponent<Rigidbody>() != null)
             equippedObject.GetComponent<Rigidbody>().isKinematic = false;
         equippedObject = null;
@@ -142,6 +199,22 @@ public class CharacterControls : MonoBehaviour
             if (equippedObject != null && Input.GetKeyDown(KeyCode.E) && canUseObject)
             {
                 equippedObject.GetComponent<IInteractable>().EquippedAction(this);
+            }
+            if (equippedObject != null)
+            {
+
+                Vector3 temp = this.transform.position + transform.forward;
+
+                Collider col = equippedObject.gameObject.GetComponent<Collider>();
+                RaycastHit hit;
+
+                if (Physics.Raycast(transform.position + transform.forward * frontOffset + Vector3.up * 1, -transform.up, out hit, raycastDistance))
+                {
+
+                    Debug.DrawRay(transform.position + transform.forward * frontOffset + Vector3.up * 1, -transform.up * hit.distance, Color.yellow);
+                    Debug.Log(hit.transform.gameObject.name);
+                    // temp = hit.point + Vector3.up * col.bounds.min.y;
+                }
             }
         }
 

@@ -63,7 +63,9 @@
      <Compile Include="Assets\Scripts\Interactable\Shovel.cs" />
      <Compile Include="Assets\Scripts\Interactable\SpecialNPC.cs" />
      <Compile Include="Assets\Scripts\Password.cs" />
+     <Compile Include="Assets\Scripts\SetGameObjectActive.cs" />
      <Compile Include="Assets\Scripts\ShaderInteractor.cs" />
+     <Compile Include="Assets\Scripts\SpinWheel.cs" />
      <Compile Include="Assets\Scripts\StaticVariables\Items.cs" />
      <Compile Include="Assets\TeaPartySeating.cs" />
      <Compile Include="Assets\UIManager.cs" />
@@ -678,6 +680,12 @@
     <Reference Include="YarnSpinner.Unity.Editor">
         <HintPath>C:/data/Creative_Projects/Unity/Edgars Spectacular Wonders/Library/ScriptAssemblies/YarnSpinner.Unity.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Polybrush">
+        <HintPath>C:/data/Creative_Projects/Unity/Edgars Spectacular Wonders/Library/ScriptAssemblies/Unity.Polybrush.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Polybrush.Editor">
+        <HintPath>C:/data/Creative_Projects/Unity/Edgars Spectacular Wonders/Library/ScriptAssemblies/Unity.Polybrush.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
         <HintPath>C:/data/Creative_Projects/Unity/Edgars Spectacular Wonders/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
@@ -698,12 +706,6 @@
     </Reference>
     <Reference Include="Unity.TextMeshPro">
         <HintPath>C:/data/Creative_Projects/Unity/Edgars Spectacular Wonders/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Polybrush">
-        <HintPath>C:/data/Creative_Projects/Unity/Edgars Spectacular Wonders/Library/ScriptAssemblies/Unity.Polybrush.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Polybrush.Editor">
-        <HintPath>C:/data/Creative_Projects/Unity/Edgars Spectacular Wonders/Library/ScriptAssemblies/Unity.Polybrush.Editor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -11,7 +11,9 @@ public class Grave : MonoBehaviour,IDiggable
     public void Dig()
     {
         Debug.Log("I'm digging");
+        if(graveMesh != null)
         graveMesh.SetActive(false);
+        if(dugGraveMesh != null)
         dugGraveMesh.SetActive(true);
         if(treasure != null )
         {

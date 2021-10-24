@@ -61,6 +61,7 @@ public class Shovel : MonoBehaviour, IInteractable
         if (_characterControls.equippedObject == null)
         {
 
+            UIManager._instance.ChangeSpecialInteractionText("Press X to drop shovel");
             UIManager._instance.ShowSpecialInteraction();
             equipped = true;
             _characterControls.PickUp(gameObject);
