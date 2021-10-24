@@ -41,6 +41,24 @@ public class CharacterControls : MonoBehaviour
     {
         StartCoroutine("PickUpHelper");
     }
+    public void DisableMovement()
+    {
+        canMove = false;
+        if (canMove == false)
+        {
+
+            animator.SetBool("isRunning", false);
+        }
+    }
+    public void EnableMovement()
+    {
+        canMove = true;
+        if (canMove == true)
+        {
+
+            animator.SetBool("isRunning", false);
+        }
+    }
     public void SetMovement(bool canMove, string classname)
     {
         this.canMove = canMove;
@@ -116,6 +134,26 @@ public class CharacterControls : MonoBehaviour
                 if (OnNearInteractable != null) OnNearInteractable();
             }
         }
+        else if (Physics.Raycast(transform.position - transform.lossyScale.y * 0 * Vector3.up, transform.forward, out hit, raycastDistance))
+        {
+            Debug.DrawRay(transform.position - transform.lossyScale.y * raycastRatio * Vector3.up, transform.forward * hit.distance, Color.yellow);
+            IInteractable tempInteractableObj = hit.collider.GetComponent<IInteractable>();
+            if (tempInteractableObj != null)
+            {
+                if (interactableObj == null)
+                {
+                    interactableObj = tempInteractableObj;
+                    interactableObj.CharacterEnter(this);
+                }
+                else if (tempInteractableObj != interactableObj)
+                {
+                    interactableObj = tempInteractableObj;
+                    interactableObj.CharacterExit(this);
+
+                }
+                if (OnNearInteractable != null) OnNearInteractable();
+            }
+        }
         else
         {
             if (OnLeaveInteractable != null) OnLeaveInteractable();
@@ -130,11 +168,12 @@ public class CharacterControls : MonoBehaviour
         RaycastHit hit;
         // Does the ray intersect any objects excluding the player layer
         Collider col = equippedObject.gameObject.GetComponent<Collider>();
-        if (Physics.Raycast(transform.position + transform.forward * frontOffset + Vector3.up * 3, -transform.up, out hit, raycastDistance))
+        if (Physics.Raycast(transform.position + transform.forward * frontOffset + Vector3.up * 3, -transform.up, out hit))
         {
 
             Debug.DrawRay(transform.position + transform.forward * frontOffset, -transform.up * hit.distance, Color.yellow);
-            temp = new Vector3(hit.point.x, hit.point.y + col.bounds.min.y, hit.point.z);
+            temp = new Vector3(hit.point.x, hit.point.y+col.bounds.size.y, hit.point.z);
+            Debug.Log(col.bounds.size.y);
             // temp.y = hit.point.y+col.bounds.min.y;
         }
         return temp;
@@ -208,7 +247,7 @@ public class CharacterControls : MonoBehaviour
                 Collider col = equippedObject.gameObject.GetComponent<Collider>();
                 RaycastHit hit;
 
-                if (Physics.Raycast(transform.position + transform.forward * frontOffset + Vector3.up * 1, -transform.up, out hit, raycastDistance))
+                if (Physics.Raycast(transform.position + transform.forward * frontOffset + Vector3.up * 1, -transform.up, out hit))
                 {
 
                     Debug.DrawRay(transform.position + transform.forward * frontOffset + Vector3.up * 1, -transform.up * hit.distance, Color.yellow);
