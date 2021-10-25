@@ -13,7 +13,7 @@ public class CharacterControls : MonoBehaviour
     public static GeneralFunction OnNearInteractable;
     public static GeneralFunction OnLeaveInteractable;
     private CharacterController controller;
-    IInteractable interactableObj;
+    public IInteractable interactableObj;
     public bool canUseObject = true;
     bool canMove = true;
     private Vector3 playerVelocity;
@@ -25,6 +25,7 @@ public class CharacterControls : MonoBehaviour
 
     float raycastRatio = .5f;
     public bool flipDirection = false;
+    public bool thingInFrontOfPlayer = false;
 
 
     void Awake()
@@ -73,89 +74,38 @@ public class CharacterControls : MonoBehaviour
     {
 
         RaycastHit hit;
+        bool rayHit = false;
+        thingInFrontOfPlayer = false;
         // Does the ray intersect any objects excluding the player layer
-        if (Physics.Raycast(transform.position - transform.lossyScale.y * raycastRatio * Vector3.up, transform.forward, out hit, raycastDistance))
+        for (int i = 0; i < 3; i++)
         {
-            Debug.DrawRay(transform.position - transform.lossyScale.y * raycastRatio * Vector3.up, transform.forward * hit.distance, Color.yellow);
-            IInteractable tempInteractableObj = hit.collider.GetComponent<IInteractable>();
-            if (tempInteractableObj != null)
+            if (Physics.Raycast(transform.position - transform.lossyScale.y * i / 3 * Vector3.up, transform.forward, out hit, raycastDistance))
             {
-                if (interactableObj == null)
+                thingInFrontOfPlayer = true;
+                rayHit = true;
+                Debug.DrawRay(transform.position - transform.lossyScale.y * i / 3 * Vector3.up, transform.forward * hit.distance, Color.yellow);
+                IInteractable tempInteractableObj = hit.collider.GetComponent<IInteractable>();
+                if (tempInteractableObj != null)
                 {
-                    interactableObj = tempInteractableObj;
-                    interactableObj.CharacterEnter(this);
-                }
-                else if (tempInteractableObj != interactableObj)
-                {
-                    interactableObj = tempInteractableObj;
-                    interactableObj.CharacterExit(this);
+                    if (interactableObj == null)
+                    {
+                        interactableObj = tempInteractableObj;
+                        interactableObj.CharacterEnter(this);
+                    }
+                    else if (tempInteractableObj != interactableObj)
+                    {
+                        interactableObj = tempInteractableObj;
+                        interactableObj.CharacterExit(this);
 
+                    }
+                    if (OnNearInteractable != null) OnNearInteractable();
+                    break;
                 }
-                if (OnNearInteractable != null) OnNearInteractable();
             }
         }
-        else if (Physics.Raycast(transform.position - transform.lossyScale.y * .25f * Vector3.up, transform.forward, out hit, raycastDistance))
+        if (rayHit == false)
         {
-            Debug.DrawRay(transform.position - transform.lossyScale.y * raycastRatio * Vector3.up, transform.forward * hit.distance, Color.yellow);
-            IInteractable tempInteractableObj = hit.collider.GetComponent<IInteractable>();
-            if (tempInteractableObj != null)
-            {
-                if (interactableObj == null)
-                {
-                    interactableObj = tempInteractableObj;
-                    interactableObj.CharacterEnter(this);
-                }
-                else if (tempInteractableObj != interactableObj)
-                {
-                    interactableObj = tempInteractableObj;
-                    interactableObj.CharacterExit(this);
 
-                }
-                if (OnNearInteractable != null) OnNearInteractable();
-            }
-        }
-        else if (Physics.Raycast(transform.position - transform.lossyScale.y * .75f * Vector3.up, transform.forward, out hit, raycastDistance))
-        {
-            Debug.DrawRay(transform.position - transform.lossyScale.y * raycastRatio * Vector3.up, transform.forward * hit.distance, Color.yellow);
-            IInteractable tempInteractableObj = hit.collider.GetComponent<IInteractable>();
-            if (tempInteractableObj != null)
-            {
-                if (interactableObj == null)
-                {
-                    interactableObj = tempInteractableObj;
-                    interactableObj.CharacterEnter(this);
-                }
-                else if (tempInteractableObj != interactableObj)
-                {
-                    interactableObj = tempInteractableObj;
-                    interactableObj.CharacterExit(this);
-
-                }
-                if (OnNearInteractable != null) OnNearInteractable();
-            }
-        }
-        else if (Physics.Raycast(transform.position - transform.lossyScale.y * 0 * Vector3.up, transform.forward, out hit, raycastDistance))
-        {
-            Debug.DrawRay(transform.position - transform.lossyScale.y * raycastRatio * Vector3.up, transform.forward * hit.distance, Color.yellow);
-            IInteractable tempInteractableObj = hit.collider.GetComponent<IInteractable>();
-            if (tempInteractableObj != null)
-            {
-                if (interactableObj == null)
-                {
-                    interactableObj = tempInteractableObj;
-                    interactableObj.CharacterEnter(this);
-                }
-                else if (tempInteractableObj != interactableObj)
-                {
-                    interactableObj = tempInteractableObj;
-                    interactableObj.CharacterExit(this);
-
-                }
-                if (OnNearInteractable != null) OnNearInteractable();
-            }
-        }
-        else
-        {
             if (OnLeaveInteractable != null) OnLeaveInteractable();
             if (interactableObj != null)
                 interactableObj.CharacterExit(this);
@@ -168,24 +118,33 @@ public class CharacterControls : MonoBehaviour
         RaycastHit hit;
         // Does the ray intersect any objects excluding the player layer
         Collider col = equippedObject.gameObject.GetComponent<Collider>();
-        if (Physics.Raycast(transform.position + transform.forward * frontOffset + Vector3.up * 3, -transform.up, out hit))
+        if (Physics.Raycast(transform.position + transform.forward * frontOffset + Vector3.up * 1, -transform.up, out hit))
         {
 
             Debug.DrawRay(transform.position + transform.forward * frontOffset, -transform.up * hit.distance, Color.yellow);
-            temp = new Vector3(hit.point.x, hit.point.y+col.bounds.size.y, hit.point.z);
-            Debug.Log(col.bounds.size.y);
-            // temp.y = hit.point.y+col.bounds.min.y;
+            temp = new Vector3(hit.point.x, hit.point.y + col.bounds.size.y/2, hit.point.z);
         }
         return temp;
     }
+    public bool CanDrop()
+    {
+        if(thingInFrontOfPlayer)
+        {
+            return false;
+        }
+        return true;
+    }
+    //Used for pedastle
     public void Drop()
     {
-        equippedObject.transform.parent = null;
-
-        equippedObject.transform.position = ReturnGroundInFront(equippedObject);
-        if (equippedObject.GetComponent<Rigidbody>() != null)
-            equippedObject.GetComponent<Rigidbody>().isKinematic = false;
-        equippedObject = null;
+        if (!thingInFrontOfPlayer)
+        {
+            equippedObject.transform.parent = null;
+            equippedObject.transform.position = ReturnGroundInFront(equippedObject);
+            if (equippedObject.GetComponent<Rigidbody>() != null)
+                equippedObject.GetComponent<Rigidbody>().isKinematic = false;
+            equippedObject = null;
+        }
     }
     //this goes over players head
     public void PickUp(GameObject gameObject)

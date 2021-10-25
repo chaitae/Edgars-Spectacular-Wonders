@@ -51,6 +51,7 @@ public class SpecialNPC : MonoBehaviour, IInteractable
 
     public void EquippedAction(CharacterControls characterControls)
     {
+        if(characterControls.CanDrop())
         characterControls.Drop();
     }
     string CheckPlayerShowingKeyDialogueItem(string equippedItemName)

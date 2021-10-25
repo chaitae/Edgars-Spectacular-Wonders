@@ -52,23 +52,29 @@ public class Pedestal : MonoBehaviour, IInteractable
 
         if (characterControls.equippedObject != null && placedObject == null) // place on pedestle
         {
+            Debug.Log("Place item on pedastl");
             characterControls.equippedObject.transform.position = objectPosition.transform.position;
             characterControls.equippedObject.transform.parent = null;
 
             if (characterControls.equippedObject.GetComponent<Rigidbody>() != null)
                 characterControls.equippedObject.GetComponent<Rigidbody>().isKinematic = false;
             placedObject = characterControls.equippedObject;
+            placedObject.GetComponent<Collider>().enabled = false;
             characterControls.equippedObject = null;
             if (placedObject.GetComponent<SpecialNPC>() != null)
             {
                 placedObject.GetComponent<SpecialNPC>().ShowSpecial();
             }
+            allowPickUp = true;
         }
         else if (keyCode != KeyCode.T && characterControls.equippedObject == null && allowPickUp) //pickup code
         {
+
             if (placedObject != null)
                 characterControls.PickUp(placedObject);
+            placedObject.GetComponent<Collider>().enabled = true;
             placedObject = null;
+
         }
     }
 
