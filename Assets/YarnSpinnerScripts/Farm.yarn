@@ -19,3 +19,7 @@ title: Chicken
 The chicken wakes up the ghost.
 <<RaiseEvent ScaredGhost>>
 ===
+title: Farmer.Surprised
+---
+Whoa. Last time I drink esper juice at this time.
+===

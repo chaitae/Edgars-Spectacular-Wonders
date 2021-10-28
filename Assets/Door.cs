@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class Door : GameEventListener
 {
-
     public LookAt lookAt;
     IEnumerator WaitSetActive()
     {
-
         yield return new WaitForSeconds(.5f);
         gameObject.SetActive(false);
     }

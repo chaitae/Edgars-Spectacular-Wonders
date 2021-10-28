@@ -41,7 +41,7 @@ namespace Yarn.Unity.Example
     }
     public class NPC : MonoBehaviour, IInteractable
     {
-        
+
         public List<GameEventDialogueNode> gameEventDialogueNodes = new List<GameEventDialogueNode>();
         DialogueUI dialogueUI;
         public List<string> ItemTalkNodes;
@@ -53,7 +53,7 @@ namespace Yarn.Unity.Example
 
         [Header("Optional")]
         public YarnProgram scriptToLoad;
-    
+
         public void CharacterEnter(CharacterControls characterControls)
         {
             characterNear = true;
@@ -66,11 +66,11 @@ namespace Yarn.Unity.Example
 
         public void CharacterExit(CharacterControls characterControls)
         {
-            
+
             characterNear = false;
             characterControls1 = null;
             characterControls.canUseObject = true;
-            
+
             UIManager._instance.HideInteractionText();
         }
 
@@ -81,11 +81,8 @@ namespace Yarn.Unity.Example
         {
             foreach (string talkNode in ItemTalkNodes)
             {
-                //Debug.Log(talkNode + "talk nodes!");
                 if (equippedItemName.ToLower().Equals(talkNode.ToLower()))
                 {
-                    // talkNodetoUse = talkNode;
-                    // Debug.Log(talkNode);
                     return talkNode;
                 }
             }
@@ -124,6 +121,7 @@ namespace Yarn.Unity.Example
             listening = true;
             dialogueRunner.onDialogueComplete.AddListener(() => EnableMovement(characterControls));
             dialogueRunner.onDialogueComplete.AddListener(() => UIManager._instance.ContinueCheckingForNearInteractable());
+            dialogueRunner.onDialogueComplete.AddListener(() => listening = false);
             UIManager._instance.StopCheckingForNearInteractable();
             UIManager._instance.HideInteractionText();
         }
@@ -143,8 +141,6 @@ namespace Yarn.Unity.Example
         }
         void Update()
         {
-            // if(characterNear)
-            // transform.LookAt(this.transform.position- characterControls1.transform.position);
             if (listening)
             {
                 if (Input.GetKeyDown(KeyCode.Space))

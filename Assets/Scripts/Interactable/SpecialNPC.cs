@@ -38,7 +38,9 @@ public class SpecialNPC : MonoBehaviour, IInteractable
     {
         characterControls.canUseObject = false;
         UIManager._instance.ShowInteractionText();
+        UIManager._instance.ChangeInteractionText("Press T to talk");
         UIManager._instance.ShowSpecialInteraction();
+        UIManager._instance.ChangeSpecialInteractionText("Press E to pick up");
     }
 
     public void CharacterExit(CharacterControls characterControls)
@@ -51,8 +53,8 @@ public class SpecialNPC : MonoBehaviour, IInteractable
 
     public void EquippedAction(CharacterControls characterControls)
     {
-        if(characterControls.CanDrop())
-        characterControls.Drop();
+        if (characterControls.CanDrop())
+            characterControls.Drop();
     }
     string CheckPlayerShowingKeyDialogueItem(string equippedItemName)
     {
@@ -105,7 +107,7 @@ public class SpecialNPC : MonoBehaviour, IInteractable
             listening = true;
             dialogueRunner.onDialogueComplete.AddListener(() => EnableMovement(characterControls));
             dialogueRunner.onDialogueComplete.AddListener(() => UIManager._instance.ContinueCheckingForNearInteractable());
-            dialogueRunner.onDialogueComplete.AddListener(()=> {ShowSpecial(); UIManager._instance.ShowInteractionText();});
+            dialogueRunner.onDialogueComplete.AddListener(() => { ShowSpecial(); UIManager._instance.ShowInteractionText(); });
             UIManager._instance.StopCheckingForNearInteractable();
             UIManager._instance.HideInteractionText();
             UIManager._instance.HideSpecialInteraction();

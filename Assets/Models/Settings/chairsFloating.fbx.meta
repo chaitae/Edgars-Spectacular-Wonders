@@ -1,80 +1,8 @@
 fileFormatVersion: 2
-guid: b1591d9153ca8634abc3b1983b31ec08
+guid: 46b7c2267e4528e4195b6a1e15a7b50b
 ModelImporter:
   serializedVersion: 19301
-  internalIDToNameTable:
-  - first:
-      74: 8673954632460798789
-    second: BaseGhostArmature.G|AAction
-  - first:
-      74: -184994587898028747
-    second: BaseGhostArmature.G|BAction
-  - first:
-      74: 6890708672146889085
-    second: BaseGhostArmature.G|CAction
-  - first:
-      74: 7706100240974669889
-    second: BaseGhostArmature.G|CircleAction
-  - first:
-      74: -3979641701715454863
-    second: BaseGhostArmature.G|EAction
-  - first:
-      74: 8102346366038207203
-    second: BaseGhostArmature.G|FAction
-  - first:
-      74: 1577223258956441444
-    second: BaseGhostArmature.G|GAction
-  - first:
-      74: -848975127057888811
-    second: BaseGhostArmature.G|GhostBase.001Action
-  - first:
-      74: -1978187501102164405
-    second: BaseGhostArmature.G|GhostIdle
-  - first:
-      74: -5095265898955783790
-    second: BaseGhostArmature.G|GhostIdle.001
-  - first:
-      74: -7516740866721380808
-    second: BaseGhostArmature.G|GhostIdle.002
-  - first:
-      74: -5190650005048785591
-    second: BaseGhostArmature.G|GhostIdle.003
-  - first:
-      74: -8699100471777040737
-    second: BaseGhostArmature.G|GhostIdle.004
-  - first:
-      74: -1198594207153859592
-    second: BaseGhostArmature.G|GhostIdle.005
-  - first:
-      74: -584958807148291050
-    second: BaseGhostArmature.G|GhostIdle.006
-  - first:
-      74: -438971359202519680
-    second: BaseGhostArmature.G|GhostIdle.007
-  - first:
-      74: 8278445127940758913
-    second: BaseGhostArmature.G|GhostIdle.008
-  - first:
-      74: 138278082986537118
-    second: BaseGhostArmature.G|GhostIdle.009
-  - first:
-      74: -4378819850083527747
-    second: BaseGhostArmature.G|GhostIdle.010
-  - first:
-      74: -5546991397212603075
-    second: BaseGhostArmature.G|GhostIdle.011
-  - first:
-      74: -5827006163379675194
-    second: BaseGhostArmature.G|GhostIdle.012
-  - first:
-      74: 8147059560354218001
-    second: BaseGhostArmature.G|GhostIdle.013
-  - first:
-      74: -2296245481564899933
-    second: BaseGhostArmature.G|GhostIdle.014
-  - first:
-      74: 4656484751363374168
-    second: BaseGhostArmature.G|HAction
+  internalIDToNameTable: []
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -133,13 +61,13 @@ ModelImporter:
     secondaryUVPackMargin: 4
     useFileScale: 1
   tangentSpace:
-    normalSmoothAngle: 30
+    normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
-    normalSmoothingSource: 2
+    normalSmoothingSource: 0
   referencedClips: []
   importAnimation: 1
   humanDescription:

@@ -1,5 +1,7 @@
 title: Edgar.Congrats
 ---
+
+<<RaiseEvent SpecialTreasure>>
 Edgar: Congratulations! You have completed the Edgar Spooktacular trials. I now present to you my most favorite of candy!
 Oh. What?
 -Sigh-

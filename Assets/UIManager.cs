@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Animations;
+
 public class UIManager : MonoBehaviour
 {
     public static UIManager _instance;

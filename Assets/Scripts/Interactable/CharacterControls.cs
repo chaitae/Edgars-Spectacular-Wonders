@@ -81,7 +81,8 @@ public class CharacterControls : MonoBehaviour
         {
             if (Physics.Raycast(transform.position - transform.lossyScale.y * i / 3 * Vector3.up, transform.forward, out hit, raycastDistance))
             {
-                thingInFrontOfPlayer = true;
+                if (hit.transform.gameObject.layer != LayerMask.NameToLayer("Ground"))
+                    thingInFrontOfPlayer = true;
                 rayHit = true;
                 Debug.DrawRay(transform.position - transform.lossyScale.y * i / 3 * Vector3.up, transform.forward * hit.distance, Color.yellow);
                 IInteractable tempInteractableObj = hit.collider.GetComponent<IInteractable>();
@@ -122,17 +123,25 @@ public class CharacterControls : MonoBehaviour
         {
 
             Debug.DrawRay(transform.position + transform.forward * frontOffset, -transform.up * hit.distance, Color.yellow);
-            temp = new Vector3(hit.point.x, hit.point.y + col.bounds.size.y/2, hit.point.z);
+            temp = new Vector3(hit.point.x, hit.point.y + col.bounds.size.y / 2, hit.point.z);
         }
         return temp;
     }
     public bool CanDrop()
     {
-        if(thingInFrontOfPlayer)
+        if (thingInFrontOfPlayer)
         {
             return false;
         }
         return true;
+    }
+    public void ConsumeItem()
+    {
+        equippedObject.transform.parent = null;
+        equippedObject.transform.position = ReturnGroundInFront(equippedObject);
+        if (equippedObject.GetComponent<Rigidbody>() != null)
+            equippedObject.GetComponent<Rigidbody>().isKinematic = false;
+        equippedObject = null;
     }
     //Used for pedastle
     public void Drop()

@@ -17,42 +17,45 @@ public class Shovel : MonoBehaviour, IInteractable
     {
         UIManager._instance.HideInteractionText();
     }
-
     public void EquippedAction(CharacterControls _characterControls)
     {
         RaycastHit hit;
         // Does the ray intersect any objects excluding the player layer
-        if (Physics.Raycast(_characterControls.transform.position - transform.lossyScale.y * .75f * Vector3.up, -transform.up, out hit, Mathf.Infinity))
+        if (Physics.Raycast(characterControls.transform.position + characterControls.transform.forward * 2 + Vector3.up, -Vector3.up, out hit, Mathf.Infinity))
         {
-            if (hit.collider.gameObject.GetComponent<IDiggable>() != null)
+            IDiggable diggable = hit.collider.gameObject.GetComponent<IDiggable>();
+            if (diggable != null)
             {
                 Debug.Log("hit floor");
-                IDiggable diggable = hit.collider.GetComponent<IDiggable>();
                 if (diggable != null) diggable.Dig();
                 Debug.Log("equipped aciton happened");
+                if(diggable.HasBeenDug())
+                UIManager._instance.HideSpecialInteraction();
             }
-        }
-        else
-        {
         }
     }
-    void CheckDiggables()
+    bool CheckDiggables()
     {
         RaycastHit hit;
-        if (Physics.Raycast(characterControls.transform.position - transform.lossyScale.y * .75f * Vector3.up, -transform.up, out hit, Mathf.Infinity))
+        if (Physics.Raycast(characterControls.transform.position + characterControls.transform.forward * 2 + Vector3.up, -Vector3.up, out hit, Mathf.Infinity))
         {
-            if (hit.collider.gameObject.GetComponent<IDiggable>() != null)
+            IDiggable temp = hit.collider.gameObject.GetComponent<IDiggable>();
+            if (temp != null)
             {
-                UIManager._instance.ShowSpecialInteraction();
-                UIManager._instance.ChangeSpecialInteractionText("Press E to dig");
+                if (!temp.HasBeenDug())
+                {
+                    UIManager._instance.ShowSpecialInteraction();
+                    UIManager._instance.ChangeSpecialInteractionText("Press E to dig");
+                }
+                return true;
             }
-
             else
             {
-                // UIManager._instance.HideSpecialInteraction();
                 UIManager._instance.ChangeSpecialInteractionText("Press X to drop shovel");
             }
         }
+
+        return false;
     }
 
     public void Interact(CharacterControls _characterControls, KeyCode keyCode)
@@ -79,9 +82,12 @@ public class Shovel : MonoBehaviour, IInteractable
         {
 
             UIManager._instance.HideSpecialInteraction();
-            characterControls.Drop();
-            characterControls = null;
-            equipped = false;
+            if (characterControls.CanDrop())
+            {
+                characterControls.Drop();
+                characterControls = null;
+                equipped = false;
+            }
         }
     }
 

@@ -30,6 +30,7 @@ public class Dial : MonoBehaviour
     {
         isDialSelected = true;
     }
+    [ContextMenu("TurnDial")]
     void TurnDial()
     {
         dialRotationIndex++;

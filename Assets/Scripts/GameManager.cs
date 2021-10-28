@@ -18,10 +18,8 @@ public class GameManager : MonoBehaviour
     }
     public void DelaySceneChange(string sceneName)
     {
-        
         IEnumerator coroutine = DelaySceneChangeHelper(2f,sceneName);
         StartCoroutine(coroutine);
-        // DelaySceneChangeHelper(2.5f,sceneName);
 
     }
 

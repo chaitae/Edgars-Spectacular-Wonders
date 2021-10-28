@@ -11,7 +11,11 @@ public class Pedestal : MonoBehaviour, IInteractable
     public void CharacterEnter(CharacterControls characterControls)
     {
         if (characterControls.equippedObject != null && placedObject == null)
+        {
+            UIManager._instance.ChangeInteractionText("Press e to place");
             UIManager._instance.ShowInteractionText();
+
+        }
 
         if (placedObject != null)
         {
@@ -66,6 +70,8 @@ public class Pedestal : MonoBehaviour, IInteractable
                 placedObject.GetComponent<SpecialNPC>().ShowSpecial();
             }
             allowPickUp = true;
+            UIManager._instance.HideInteractionText();
+
         }
         else if (keyCode != KeyCode.T && characterControls.equippedObject == null && allowPickUp) //pickup code
         {

@@ -22,8 +22,8 @@ public class PickUp : MonoBehaviour, IInteractable
     }
     public void Consume()
     {
-        characterControls1.Drop();
-        Destroy(gameObject);
+//        characterControls1.ConsumeItem();
+        Destroy(transform.parent.gameObject);
     }
     public void Interact(CharacterControls characterControls, KeyCode keyCode)
     {
@@ -33,7 +33,7 @@ public class PickUp : MonoBehaviour, IInteractable
             {
                 GameObject temp = Instantiate(gameObject);
                 temp.GetComponent<PickUp>().infiniteObject = false;
-                
+                characterControls1 = characterControls;
                 characterControls.PickUp(temp);
 
             }
