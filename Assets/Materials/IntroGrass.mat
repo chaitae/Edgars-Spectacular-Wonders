@@ -56,7 +56,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _AmbientStrength: 0.2
+    - _AmbientStrength: 0.308
     - _BladeCurve: 4
     - _BladeForward: 0.38
     - _BumpScale: 1

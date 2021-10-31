@@ -43,20 +43,35 @@ In time my little one! Once you complete my trials you may esca- I mean leave.
 
 title:Door1
 ---
+<<PlayAnimation Bobross ShowCandy>>
 <<PlayAnimation Door1 OpenDoor>>
-Oh! don't you look cute in your little costume! 
-You recieve a toothbrush.
+
+<<if visited("Door1") is false>>
+    Oh! don't you look cute in your little costume! 
+    You recieve a toothbrush.
+<<else>>
+    I already gave you something.
+<<endif>>
 <<PlayAnimation Door1 CloseDoor>>
+<<PlayAnimation Bobross HideSelf>>
 ===
 title:Door2
 ---
+<<PlayAnimation catgirlNPC ShowCandy>>
 <<PlayAnimation Door2 OpenDoor>>
-What are you?
-Wait no let me guess.
-A wasp?!
-Oh? I'm completely off? Oh well. Here you go!
-You recieve an apple.
+
+<<if visited("Door2") is false>>
+    What are you?
+    Wait no let me guess.
+    A wasp?!
+    Oh? I'm completely off? Oh well. Here you go!
+    You recieve an apple.
+<<else>>
+    I already gave you a treat!
+<<endif>>
+
 <<PlayAnimation Door2 CloseDoor>>
+<<PlayAnimation catgirlNPC HideSelf>>
 ===
 title:Door3
 ---
@@ -64,8 +79,15 @@ No one answers.
 ===
 title:Door4
 ---
+<<PlayAnimation GrumpyNPC ShowCandy>>
 <<PlayAnimation Door4 OpenDoor>>
-Yeah, yeah. Here you go begger.
-You recieve a reciept.
+
+<<if visited("Door4") is false>>
+    Yeah, yeah. Here you go begger.
+    You recieve a reciept.
+<<else>>
+    No more for you.
+<<endif>>
 <<PlayAnimation Door4 CloseDoor>>
+<<PlayAnimation GrumpyNPC HideSelf>>
 ===
