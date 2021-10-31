@@ -29,7 +29,7 @@ public class LookAt : MonoBehaviour, IInteractable
     {
         if (playerLooking)
         {
-            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.E))
             {
                 ExitLook();
             }

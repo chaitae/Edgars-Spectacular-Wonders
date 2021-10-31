@@ -27,128 +27,133 @@ SOFTWARE.
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using Yarn.Unity;
 
-namespace Yarn.Unity.Example
+/// attached to the non-player characters, and stores the name of the Yarn
+/// node that should be run when you talk to them.
+// public class 
+[System.Serializable]
+public class GameEventDialogueNode
 {
-    /// attached to the non-player characters, and stores the name of the Yarn
-    /// node that should be run when you talk to them.
-    // public class 
-    [System.Serializable]
-    public class GameEventDialogueNode
-    {
-        public GameEvent gameEvent;
-        public string dialogueNode;
-    }
-    public class NPC : MonoBehaviour, IInteractable
-    {
-
-        public List<GameEventDialogueNode> gameEventDialogueNodes = new List<GameEventDialogueNode>();
-        DialogueUI dialogueUI;
-        public List<string> ItemTalkNodes;
-        public string characterName = "";
-        public string defaultTalkNode = "";
-        bool listening = false;
-        bool characterNear = false;
-        CharacterControls characterControls1;
-
-        [Header("Optional")]
-        public YarnProgram scriptToLoad;
-
-        public void CharacterEnter(CharacterControls characterControls)
-        {
-            characterNear = true;
-            characterControls1 = characterControls;
-            characterControls.canUseObject = false;
-            UIManager._instance.ShowInteractionText();
-            UIManager._instance.ChangeInteractionText("Press e to talk");
-
-        }
-
-        public void CharacterExit(CharacterControls characterControls)
-        {
-
-            characterNear = false;
-            characterControls1 = null;
-            characterControls.canUseObject = true;
-
-            UIManager._instance.HideInteractionText();
-        }
-
-        public void EquippedAction(CharacterControls characterControls)
-        {
-        }
-        string CheckPlayerShowingKeyDialogueItem(string equippedItemName)
-        {
-            foreach (string talkNode in ItemTalkNodes)
-            {
-                if (equippedItemName.ToLower().Equals(talkNode.ToLower()))
-                {
-                    return talkNode;
-                }
-            }
-            return "";
-        }
-        string CheckEventsTriggered()
-        {
-            if (gameEventDialogueNodes.Count == 0) return "";
-            for (int i = gameEventDialogueNodes.Count - 1; i >= 0; i--)
-            {
-                if (gameEventDialogueNodes[i].gameEvent.eventRaised)
-                {
-                    return gameEventDialogueNodes[i].dialogueNode;
-                }
-            }
-            return "";
-        }
-        public void Interact(CharacterControls characterControls, KeyCode keyCode)
-        {
-            DialogueRunner dialogueRunner = FindObjectOfType<DialogueRunner>();
-            if (dialogueRunner.IsDialogueRunning) return;
-
-            string talkNodetoUse = defaultTalkNode;
-            if (CheckEventsTriggered() != "") talkNodetoUse = CheckEventsTriggered();
-            if (characterControls.equippedObject != null)
-            {
-                if (CheckPlayerShowingKeyDialogueItem(characterControls.equippedObject.name) != "")
-                {
-                    talkNodetoUse = CheckPlayerShowingKeyDialogueItem(characterControls.equippedObject.name);
-                }
-            }
-
-            dialogueRunner.StartDialogue(talkNodetoUse);
-            characterControls.SetMovement(false, "NPC");
-            dialogueRunner = FindObjectOfType<DialogueRunner>();
-            listening = true;
-            dialogueRunner.onDialogueComplete.AddListener(() => EnableMovement(characterControls));
-            dialogueRunner.onDialogueComplete.AddListener(() => UIManager._instance.ContinueCheckingForNearInteractable());
-            dialogueRunner.onDialogueComplete.AddListener(() => listening = false);
-            UIManager._instance.StopCheckingForNearInteractable();
-            UIManager._instance.HideInteractionText();
-        }
-        void EnableMovement(CharacterControls characterControls)
-        {
-            characterControls.SetMovement(true, "NPC");
-        }
-
-        void Start()
-        {
-            if (scriptToLoad != null)
-            {
-                DialogueRunner dialogueRunner = FindObjectOfType<Yarn.Unity.DialogueRunner>();
-                dialogueRunner.Add(scriptToLoad);
-            }
-            dialogueUI = FindObjectOfType<Yarn.Unity.DialogueUI>();
-        }
-        void Update()
-        {
-            if (listening)
-            {
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    dialogueUI.MarkLineComplete();
-                }
-            }
-        }
-    }
-
+    public GameEvent gameEvent;
+    public string dialogueNode;
 }
+public class NPC : MonoBehaviour, IInteractable
+{
+
+    public Animator animator;
+    public List<GameEventDialogueNode> gameEventDialogueNodes = new List<GameEventDialogueNode>();
+    DialogueUI dialogueUI;
+    public List<string> ItemTalkNodes;
+    public string characterName = "";
+    public string defaultTalkNode = "";
+    bool listening = false;
+    bool characterNear = false;
+    CharacterControls characterControls1;
+
+    [Header("Optional")]
+    public YarnProgram scriptToLoad;
+    [YarnCommand("PlayAnimation")]
+    public void PlayAnimation(string animation)
+    {
+        animator.Play(animation);
+    }
+
+    public void CharacterEnter(CharacterControls characterControls)
+    {
+        characterNear = true;
+        characterControls1 = characterControls;
+        characterControls.canUseObject = false;
+        UIManager._instance.ShowInteractionText();
+        UIManager._instance.ChangeInteractionText("Press e to talk");
+
+    }
+
+    public void CharacterExit(CharacterControls characterControls)
+    {
+
+        characterNear = false;
+        characterControls1 = null;
+        characterControls.canUseObject = true;
+
+        UIManager._instance.HideInteractionText();
+    }
+
+    public void EquippedAction(CharacterControls characterControls)
+    {
+    }
+    string CheckPlayerShowingKeyDialogueItem(string equippedItemName)
+    {
+        foreach (string talkNode in ItemTalkNodes)
+        {
+            if (equippedItemName.ToLower().Equals(talkNode.ToLower()))
+            {
+                return talkNode;
+            }
+        }
+        return "";
+    }
+    string CheckEventsTriggered()
+    {
+        if (gameEventDialogueNodes.Count == 0) return "";
+        for (int i = gameEventDialogueNodes.Count - 1; i >= 0; i--)
+        {
+            if (gameEventDialogueNodes[i].gameEvent.eventRaised)
+            {
+                return gameEventDialogueNodes[i].dialogueNode;
+            }
+        }
+        return "";
+    }
+    public void Interact(CharacterControls characterControls, KeyCode keyCode)
+    {
+        DialogueRunner dialogueRunner = FindObjectOfType<DialogueRunner>();
+        if (dialogueRunner.IsDialogueRunning) return;
+
+        string talkNodetoUse = defaultTalkNode;
+        if (CheckEventsTriggered() != "") talkNodetoUse = CheckEventsTriggered();
+        if (characterControls.equippedObject != null)
+        {
+            if (CheckPlayerShowingKeyDialogueItem(characterControls.equippedObject.name) != "")
+            {
+                talkNodetoUse = CheckPlayerShowingKeyDialogueItem(characterControls.equippedObject.name);
+            }
+        }
+
+        dialogueRunner.StartDialogue(talkNodetoUse);
+        characterControls.SetMovement(false, "NPC");
+        dialogueRunner = FindObjectOfType<DialogueRunner>();
+        listening = true;
+        dialogueRunner.onDialogueComplete.AddListener(() => EnableMovement(characterControls));
+        dialogueRunner.onDialogueComplete.AddListener(() => UIManager._instance.ContinueCheckingForNearInteractable());
+        dialogueRunner.onDialogueComplete.AddListener(() => listening = false);
+        UIManager._instance.StopCheckingForNearInteractable();
+        UIManager._instance.HideInteractionText();
+    }
+    void EnableMovement(CharacterControls characterControls)
+    {
+        characterControls.SetMovement(true, "NPC");
+    }
+
+    void Start()
+    {
+        if (scriptToLoad != null)
+        {
+            DialogueRunner dialogueRunner = FindObjectOfType<Yarn.Unity.DialogueRunner>();
+            dialogueRunner.Add(scriptToLoad);
+        }
+        dialogueUI = FindObjectOfType<Yarn.Unity.DialogueUI>();
+    }
+    void Update()
+    {
+        if (listening)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                dialogueUI.MarkLineComplete();
+            }
+        }
+    }
+}
+
+

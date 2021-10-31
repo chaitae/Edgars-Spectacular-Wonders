@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Grass
+  m_Name: IntroGrass
   m_Shader: {fileID: 4800000, guid: 89a528e2f7d48284ca4e8fef6a5fa613, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -67,7 +67,7 @@ Material:
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Glow: 1
-    - _GrassHeight: 1.35
+    - _GrassHeight: 1.32
     - _GrassWidth: -0.08
     - _MaxDist: 321.9
     - _Metallic: 0
@@ -88,7 +88,7 @@ Material:
     - _WindStrength: 0.32
     - _ZWrite: 1
     m_Colors:
-    - _BottomColor: {r: 1, g: 0.24472576, b: 0, a: 1}
+    - _BottomColor: {r: 0.9811321, g: 0.2775861, b: 0.0509078, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}

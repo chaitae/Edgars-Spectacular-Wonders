@@ -40,3 +40,32 @@ You just got here!
 In time my little one! Once you complete my trials you may esca- I mean leave.
 <<RaiseEvent TalkEdgarGraveYard>>
 ===
+
+title:Door1
+---
+<<PlayAnimation Door1 OpenDoor>>
+Oh! don't you look cute in your little costume! 
+You recieve a toothbrush.
+<<PlayAnimation Door1 CloseDoor>>
+===
+title:Door2
+---
+<<PlayAnimation Door2 OpenDoor>>
+What are you?
+Wait no let me guess.
+A wasp?!
+Oh? I'm completely off? Oh well. Here you go!
+You recieve an apple.
+<<PlayAnimation Door2 CloseDoor>>
+===
+title:Door3
+---
+No one answers.
+===
+title:Door4
+---
+<<PlayAnimation Door4 OpenDoor>>
+Yeah, yeah. Here you go begger.
+You recieve a reciept.
+<<PlayAnimation Door4 CloseDoor>>
+===

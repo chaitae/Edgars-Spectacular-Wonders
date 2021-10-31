@@ -7,6 +7,7 @@ using UnityEngine.Animations;
 public class UIManager : MonoBehaviour
 {
     public static UIManager _instance;
+    public GameObject settingsCanvas;
     public GameObject hintCanvas;
     public TMP_Text hintText;
     public TMP_Text interactionText;
@@ -24,9 +25,13 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    public void ToggleSettingsMenu()
+    {
+        settingsCanvas.SetActive(!settingsCanvas.activeSelf);
+    }
     public void ShowHintText(string hint)
     {
-        if(hint == "")
+        if (hint == "")
         {
 
         }
@@ -42,12 +47,12 @@ public class UIManager : MonoBehaviour
     }
     public void ChangeInteractionText(string str)
     {
-        if(str == "") interactionText.text = interactionTestDefault;
+        if (str == "") interactionText.text = interactionTestDefault;
         else interactionText.text = str;
     }
     public void ChangeSpecialInteractionText(string str)
     {
-        if(str == "") specialInteractionText.text = specialInteractionTextDefault;
+        if (str == "") specialInteractionText.text = specialInteractionTextDefault;
         else specialInteractionText.text = str;
 
     }
@@ -97,5 +102,9 @@ public class UIManager : MonoBehaviour
     void Update()
     {
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ToggleSettingsMenu();
+        }
     }
 }

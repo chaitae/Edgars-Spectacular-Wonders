@@ -37,7 +37,7 @@ public class Password : MonoBehaviour
     }
     public void CompareEntryandPassword(string pass)
     {
-        if (pass == password)
+        if (pass.ToLower() == password.ToLower())
         {
             Debug.Log("Yes, password is right");
             HidePasswordScreen();
@@ -52,7 +52,7 @@ public class Password : MonoBehaviour
     {
         if (ui.activeSelf)
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 HidePasswordScreen();
             }

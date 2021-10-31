@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     // Start is called before the first frame update
     public Dictionary<string, GameEvent> gameEventsDirectory = new Dictionary<string, GameEvent>();
+    public AudioSource audioSource;
     // List<GameEvent> gameEventsList = new List<GameEvent>();
     public static GameManager _instance;
 
@@ -27,12 +28,17 @@ public class GameManager : MonoBehaviour
     {
         if (_instance == null)
         {
+            audioSource = GameObject.FindObjectOfType<AudioSource>();
             _instance = this;
         }
         else
         {
             Destroy(gameObject);
         }
+    }
+    public void OnChangeMusic(float level)
+    {
+        audioSource.volume = level;
     }
     public void ChangeScene(string str)
     {
