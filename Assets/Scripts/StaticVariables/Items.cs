@@ -4,5 +4,5 @@ using UnityEngine;
 
 public static class Items
 {
-    public enum Ingredient{red,yellow,blue,green,purple,BirdSeed};
+    public enum Ingredient{red,yellow,blue,green,purple,BirdSeed,Potion,Jewel};
 }

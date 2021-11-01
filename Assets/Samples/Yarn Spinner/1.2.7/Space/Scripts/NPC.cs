@@ -58,7 +58,19 @@ public class NPC : MonoBehaviour, IInteractable
     {
         animator.Play(animation);
     }
+    [ContextMenu("Startdialogue")]
+    public void Test()
+    {
+        StartDialogueNode("Sophie.Failed");
+    }
+    public void StartDialogueNode(string nodeName)
+    {
+        // string nodeName = "Sophie.Failed";
+        DialogueRunner dialogueRunner = FindObjectOfType<DialogueRunner>();
+       if (dialogueRunner.IsDialogueRunning) return;
+        dialogueRunner.StartDialogue(nodeName);
 
+    }
     public void CharacterEnter(CharacterControls characterControls)
     {
         characterNear = true;

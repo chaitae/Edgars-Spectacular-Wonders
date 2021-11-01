@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6712f33d78465c49aa63a738ee5bee9, type: 3}
   m_Name: CantMix
   m_EditorClassIdentifier: 
-  eventRaised: 0
+  eventRaised: 1

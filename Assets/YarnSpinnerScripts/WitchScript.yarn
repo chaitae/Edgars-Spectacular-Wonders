@@ -8,7 +8,6 @@ Sophie: Hello! I can help you make potions if you gather ingredients, and place 
 title: Sophie.Mix
 ---
 Okay, I'll mix them for you.
-
 <<MixPotion witch>>
 ===
 title: Sophie.No
@@ -26,4 +25,8 @@ title: Sophie.MixOption
 <<if $enoughIngredients is true>>
 [[mixIngredients|Sophie.Mix]]
 <<endif>>
+===
+title: Sophie.Failed
+---
+Oh dear. That didn't seem to work.
 ===

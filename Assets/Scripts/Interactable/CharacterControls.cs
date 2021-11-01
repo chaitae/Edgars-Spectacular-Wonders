@@ -141,6 +141,7 @@ public class CharacterControls : MonoBehaviour
         equippedObject.transform.position = ReturnGroundInFront(equippedObject);
         if (equippedObject.GetComponent<Rigidbody>() != null)
             equippedObject.GetComponent<Rigidbody>().isKinematic = false;
+        equippedObject.SetActive(false);
         equippedObject = null;
     }
     //Used for pedastle

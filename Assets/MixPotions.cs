@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using Yarn.Unity;
 
 [System.Serializable]
@@ -15,7 +17,17 @@ public class MixPotions : MonoBehaviour
     public Potion[] PotionRecipes;
     public GameEvent mixedPotionsRight;
     public Pedestal[] pedestals;
+    public GameObject spawnPotionLocation;
     bool madePotion = false;
+    public UnityEvent botchedMix;
+
+    
+    IEnumerator DelayAction()
+    {
+
+        yield return new WaitForSeconds(.4f);
+        botchedMix.Invoke();
+    }
     public Items.Ingredient[] getPedestalIngredients(Pedestal[] pedistals)
     {
         Items.Ingredient[] ingredients = new Items.Ingredient[3];
@@ -60,7 +72,8 @@ public class MixPotions : MonoBehaviour
     }
     public void SpawnPotion(GameObject potion)
     {
-        potion.SetActive(true);
+        Instantiate(potion, spawnPotionLocation.transform).name = "Potion";
+        // potion.SetActive(true);
 
     }
     public void ClearPotions()
@@ -76,10 +89,8 @@ public class MixPotions : MonoBehaviour
     [YarnCommand("MixPotion")]
     public bool CheckMatchingPotion()
     {
-        Debug.Log("HELLO IM IN CHECKING Match potion");
         if (!ArePedestalesFull())
         {
-            cantMix.Raise();
             return false;
         }
         for (int i = 0; i < PotionRecipes.Length; i++)
@@ -88,24 +99,12 @@ public class MixPotions : MonoBehaviour
             {
                 SpawnPotion(PotionRecipes[i].gameObject);
                 ClearPotions();
-
                 return true;
             }
         }
-
         ClearPotions();
+        StartCoroutine("DelayAction");
+        // botchedMix.Invoke();
         return false;
-    }
-    void Update()
-    {
-        // if (!madePotion)
-        // {
-        //     if (CheckMatchingPotion())
-        //     {
-        //         madePotion = true;
-        //         ClearPotions();
-        //     }
-
-        // }
     }
 }

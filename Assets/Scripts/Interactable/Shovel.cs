@@ -5,6 +5,7 @@ using UnityEngine;
 public class Shovel : MonoBehaviour, IInteractable
 {
     CharacterControls characterControls;
+    IDiggable diggableThing;
     bool equipped = false;
     public void CharacterEnter(CharacterControls _characterControls)
     {
@@ -19,40 +20,57 @@ public class Shovel : MonoBehaviour, IInteractable
     }
     public void EquippedAction(CharacterControls _characterControls)
     {
-        RaycastHit hit;
-        // Does the ray intersect any objects excluding the player layer
-        if (Physics.Raycast(characterControls.transform.position + characterControls.transform.forward * 2 + Vector3.up, -Vector3.up, out hit, Mathf.Infinity))
+        if (CheckDiggables())
         {
-            IDiggable diggable = hit.collider.gameObject.GetComponent<IDiggable>();
-            if (diggable != null)
-            {
-                Debug.Log("hit floor");
-                if (diggable != null) diggable.Dig();
-                Debug.Log("equipped aciton happened");
-                if(diggable.HasBeenDug())
-                UIManager._instance.HideSpecialInteraction();
-            }
+            diggableThing.Dig();
         }
+        // RaycastHit hit;
+        // // Does the ray intersect any objects excluding the player layer
+        // if (Physics.Raycast(characterControls.transform.position + characterControls.transform.forward * 2 + Vector3.up, -Vector3.up, out hit, Mathf.Infinity))
+        // {
+        //     IDiggable diggable = hit.collider.gameObject.GetComponent<IDiggable>();
+        //     if (diggable != null)
+        //     {
+        //         Debug.Log("hit floor");
+        //         if (diggable != null) diggable.Dig();
+        //         Debug.Log("equipped aciton happened");
+        //         if (diggable.HasBeenDug())
+        //             UIManager._instance.HideSpecialInteraction();
+        //     }
+        // }
     }
     bool CheckDiggables()
     {
+        LayerMask mask = LayerMask.GetMask("Player");
         RaycastHit hit;
-        if (Physics.Raycast(characterControls.transform.position + characterControls.transform.forward * 2 + Vector3.up, -Vector3.up, out hit, Mathf.Infinity))
+        for (int i = 0; i < 3; i++)
         {
-            IDiggable temp = hit.collider.gameObject.GetComponent<IDiggable>();
-            if (temp != null)
+            if (Physics.Raycast(characterControls.transform.position + characterControls.transform.forward * i + Vector3.up, -Vector3.up, out hit, Mathf.Infinity,~mask))
             {
-                if (!temp.HasBeenDug())
+                Debug.DrawRay(characterControls.transform.position + characterControls.transform.forward * i + Vector3.up, -Vector3.up, Color.green, 2, false);
+
+                IDiggable temp = hit.collider.gameObject.GetComponent<IDiggable>();
+                if (temp != null)
                 {
-                    UIManager._instance.ShowSpecialInteraction();
-                    UIManager._instance.ChangeSpecialInteractionText("Press E to dig");
+                    if (!temp.HasBeenDug())
+                    {
+                        diggableThing = temp;
+                        UIManager._instance.ShowSpecialInteraction();
+                        UIManager._instance.ChangeSpecialInteractionText("Press E to dig");
+                    }
+
+                    return true;
                 }
-                return true;
+                else
+                {
+                    UIManager._instance.ChangeSpecialInteractionText("Press X to drop shovel");
+                }
             }
             else
             {
-                UIManager._instance.ChangeSpecialInteractionText("Press X to drop shovel");
+                diggableThing = null;
             }
+
         }
 
         return false;

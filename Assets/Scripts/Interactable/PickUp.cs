@@ -22,7 +22,7 @@ public class PickUp : MonoBehaviour, IInteractable
     }
     public void Consume()
     {
-//        characterControls1.ConsumeItem();
+        //        characterControls1.ConsumeItem();
         Destroy(transform.parent.gameObject);
     }
     public void Interact(CharacterControls characterControls, KeyCode keyCode)
@@ -39,6 +39,10 @@ public class PickUp : MonoBehaviour, IInteractable
             }
             else
             {
+                //this is pick up..
+
+                UIManager._instance.ShowInteractionText();
+                UIManager._instance.ChangeInteractionText("E to drop item");
                 characterControls1 = characterControls;
                 characterControls.PickUp(gameObject);
             }
