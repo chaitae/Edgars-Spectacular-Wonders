@@ -10,29 +10,33 @@ public class Password : MonoBehaviour
     public GameObject ui;
     public TMP_InputField myinputfield;
     public GameEvent gameEvent;
+    public GameObject obelisk;
     public string password;
+    CharacterControls characterControl;
+    void Start()
+    {
+        characterControl = FindObjectOfType<CharacterControls>();
+    }
 
     [YarnCommand("OpenPassword")]
     public void OpenPasswordScreen()
     {
-        // UIManager._instance.ShowHintText("Press escape to leave password entry");
         ui.SetActive(true);
         myinputfield.Select();
         myinputfield.ActivateInputField();
-        StartCoroutine("DisableMovement");
     }
     public void HidePasswordScreen()
     {
-        // UIManager._instance.HideHint();
+        UIManager._instance.HideHint();
         ui.SetActive(false);
-        CharacterControls characterControl = FindObjectOfType<CharacterControls>();
-        characterControl.SetMovement(true, "ClosePassword");
+
     }
-    IEnumerator DisableMovement()
+    IEnumerator SetMovement(bool moveState)
     {
+        StopAllCoroutines();
         yield return new WaitForSeconds(.5f);
         CharacterControls characterControl = FindObjectOfType<CharacterControls>();
-        characterControl.SetMovement(false, "OpenPassword");
+        characterControl.SetMovement(moveState, "OpenPassword");
 
     }
     public void CompareEntryandPassword(string pass)
@@ -52,10 +56,19 @@ public class Password : MonoBehaviour
     {
         if (ui.activeSelf)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            characterControl.SetMovement(false, "password");
+            UIManager._instance.disableSettingsMenu = true;
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
+
+                characterControl.SetMovement(true, "password");
+                UIManager._instance.disableSettingsMenu = false;
                 HidePasswordScreen();
             }
+        }
+        else
+        {
+
         }
     }
 }

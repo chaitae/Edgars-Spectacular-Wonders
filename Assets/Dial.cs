@@ -33,10 +33,13 @@ public class Dial : MonoBehaviour
     [ContextMenu("TurnDial")]
     void TurnDial()
     {
-        dialRotationIndex++;
-        if (dialRotationIndex == dialPresets.Length)
+        if (dialRotationIndex+1 == dialPresets.Length)
         {
             dialRotationIndex = 0;
+        }
+        else
+        {
+            dialRotationIndex++;
         }
         dial.transform.eulerAngles = new Vector3(dial.transform.rotation.x, dial.transform.rotation.y, dialPresets[dialRotationIndex]);
     }
@@ -44,6 +47,10 @@ public class Dial : MonoBehaviour
     void Start()
     {
 
+        while(Mathf.Round(dial.transform.rotation.z) != dialPresets[dialRotationIndex])
+        {
+            dialRotationIndex++;
+        }
     }
 
     // Update is called once per frame

@@ -22,7 +22,6 @@ public class PickUp : MonoBehaviour, IInteractable
     }
     public void Consume()
     {
-        //        characterControls1.ConsumeItem();
         Destroy(transform.parent.gameObject);
     }
     public void Interact(CharacterControls characterControls, KeyCode keyCode)
@@ -41,10 +40,12 @@ public class PickUp : MonoBehaviour, IInteractable
             {
                 //this is pick up..
 
-                UIManager._instance.ShowInteractionText();
-                UIManager._instance.ChangeInteractionText("E to drop item");
                 characterControls1 = characterControls;
                 characterControls.PickUp(gameObject);
+                UIManager._instance.ShowSpecialInteraction();
+                UIManager._instance.ChangeSpecialInteractionText("E to drop item");
+                // UIManager._instance.ShowInteractionText();
+                // UIManager._instance.ChangeInteractionText("E to drop item");
             }
 
             if (GetComponent<Rigidbody>() != null)
@@ -56,5 +57,11 @@ public class PickUp : MonoBehaviour, IInteractable
     public void EquippedAction(CharacterControls characterControls)
     {
         characterControls.Drop();
+        UIManager._instance.HideSpecialInteraction();
+
+    }
+
+    public void CharacterStay(CharacterControls _characterControls)
+    {
     }
 }

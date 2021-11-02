@@ -40,6 +40,10 @@ public class Pedestal : MonoBehaviour, IInteractable
         }
     }
 
+    public void CharacterStay(CharacterControls _characterControls)
+    {
+    }
+
     public void EquippedAction(CharacterControls characterControls)
     {
     }

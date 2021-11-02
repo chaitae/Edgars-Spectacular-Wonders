@@ -166,6 +166,13 @@ public class NPC : MonoBehaviour, IInteractable
             }
         }
     }
+
+    public void CharacterStay(CharacterControls _characterControls)
+    {
+        
+        UIManager._instance.ShowInteractionText();
+        UIManager._instance.ChangeInteractionText("Press e to talk");
+    }
 }
 
 

@@ -9,7 +9,6 @@ public class DialogueAnimtorScripts : MonoBehaviour
     [YarnCommand("PlayAnimation")]
     public void PlayAnimation(string animationName)
     {
-        Debug.Log("hello");
         animator.Play(animationName);
     }
     // Start is called before the first frame update

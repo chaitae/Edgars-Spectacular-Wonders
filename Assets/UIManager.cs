@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     public TMP_Text interactionText;
     public TMP_Text specialInteractionText;
     public GameObject interactionObject;
+    public bool disableSettingsMenu = false;
 
     public GameObject interactionTalkObject;
     string interactionTestDefault = "Press E to interact";
@@ -102,7 +103,7 @@ public class UIManager : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !disableSettingsMenu)
         {
             ToggleSettingsMenu();
         }

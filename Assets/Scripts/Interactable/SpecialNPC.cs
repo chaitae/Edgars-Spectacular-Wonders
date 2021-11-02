@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 using Yarn.Unity;
 
 public class SpecialNPC : MonoBehaviour, IInteractable
@@ -19,11 +20,15 @@ public class SpecialNPC : MonoBehaviour, IInteractable
     public List<string> ItemTalkNodes;
     public string characterName = "";
     public string defaultTalkNode = "";
+    public LookAtConstraint lookAtConstraint;
     bool listening = false;
 
     [Header("Optional")]
     public YarnProgram scriptToLoad;
 
+    void Awake()
+    {
+    }
     public void ShowSpecial()
     {
         UIManager._instance.ShowSpecialInteraction();
@@ -151,5 +156,8 @@ public class SpecialNPC : MonoBehaviour, IInteractable
         }
     }
 
-
+    public void CharacterStay(CharacterControls _characterControls)
+    {
+        //        throw new System.NotImplementedException();
+    }
 }

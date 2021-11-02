@@ -109,4 +109,7 @@ public class Shovel : MonoBehaviour, IInteractable
         }
     }
 
+    public void CharacterStay(CharacterControls _characterControls)
+    {
+    }
 }

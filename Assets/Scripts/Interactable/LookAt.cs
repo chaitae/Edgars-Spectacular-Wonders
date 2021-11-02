@@ -76,8 +76,7 @@ public class LookAt : MonoBehaviour, IInteractable
 
     }
 
-
-
-
-
+    public void CharacterStay(CharacterControls _characterControls)
+    {
+    }
 }

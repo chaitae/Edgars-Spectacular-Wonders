@@ -54,7 +54,7 @@ public class DialManager : MonoBehaviour
     {
         for (int i = 0; i < dialPassword.Length; i++)
         {
-            if (dials[i].dialPresets[dials[i].dialRotationIndex] != dialPassword[i])
+            if (Mathf.Round(dials[i].dialPresets[dials[i].dialRotationIndex]) != dialPassword[i])
             {
                 return false;
             }

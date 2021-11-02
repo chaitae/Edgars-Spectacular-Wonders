@@ -42,30 +42,12 @@ public class CharacterControls : MonoBehaviour
     {
         StartCoroutine("PickUpHelper");
     }
-    public void DisableMovement()
-    {
-        canMove = false;
-        if (canMove == false)
-        {
 
-            animator.SetBool("isRunning", false);
-        }
-    }
-    public void EnableMovement()
-    {
-        canMove = true;
-        if (canMove == true)
-        {
-
-            animator.SetBool("isRunning", false);
-        }
-    }
     public void SetMovement(bool canMove, string classname)
     {
         this.canMove = canMove;
         if (canMove == false)
         {
-
             animator.SetBool("isRunning", false);
         }
     }
@@ -96,8 +78,13 @@ public class CharacterControls : MonoBehaviour
                     else if (tempInteractableObj != interactableObj)
                     {
                         interactableObj = tempInteractableObj;
-                        interactableObj.CharacterExit(this);
+//                        interactableObj.CharacterExit(this);
 
+                    }
+                    else
+                    {
+                        interactableObj.CharacterStay(this);
+                        // interactableObj
                     }
                     if (OnNearInteractable != null) OnNearInteractable();
                     break;
@@ -137,6 +124,7 @@ public class CharacterControls : MonoBehaviour
     }
     public void ConsumeItem()
     {
+        UIManager._instance.HideSpecialInteraction();
         equippedObject.transform.parent = null;
         equippedObject.transform.position = ReturnGroundInFront(equippedObject);
         if (equippedObject.GetComponent<Rigidbody>() != null)

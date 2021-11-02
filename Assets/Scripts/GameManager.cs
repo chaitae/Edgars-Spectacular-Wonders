@@ -12,18 +12,21 @@ public class GameManager : MonoBehaviour
     // List<GameEvent> gameEventsList = new List<GameEvent>();
     public static GameManager _instance;
 
-    private IEnumerator DelaySceneChangeHelper(float waitTime,string sceneName)
+    private IEnumerator DelaySceneChangeHelper(float waitTime, string sceneName)
     {
-       yield return new WaitForSeconds(1.5f);
-       SceneManager.LoadScene(sceneName);
+        yield return new WaitForSeconds(1.5f);
+        SceneManager.LoadScene(sceneName);
     }
     public void DelaySceneChange(string sceneName)
     {
-        IEnumerator coroutine = DelaySceneChangeHelper(2f,sceneName);
+        IEnumerator coroutine = DelaySceneChangeHelper(2f, sceneName);
         StartCoroutine(coroutine);
 
     }
-
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
     void Awake()
     {
         if (_instance == null)
