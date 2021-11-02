@@ -48,7 +48,7 @@
      <Compile Include="Assets\Samples\Yarn Spinner\1.2.7\Space\Scripts\NodeVisitedTracker.cs" />
      <Compile Include="Assets\Samples\Yarn Spinner\1.2.7\Space\Scripts\PlayerCharacter.cs" />
      <Compile Include="Assets\Samples\Yarn Spinner\1.2.7\Space\Scripts\SpriteSwitcher.cs" />
-     <Compile Include="Assets\Scripts\DialogueAnimtorScripts.cs" />
+     <Compile Include="Assets\Scripts\DialogueAnimatorCommand.cs" />
      <Compile Include="Assets\Scripts\DialogueCommands.cs" />
      <Compile Include="Assets\Scripts\GameEvent.cs" />
      <Compile Include="Assets\Scripts\GameEventListener.cs" />
