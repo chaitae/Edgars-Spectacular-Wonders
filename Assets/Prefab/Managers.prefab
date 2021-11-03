@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 488278610}
   - component: {fileID: 8096301453009351570}
   m_Layer: 0
-  m_Name: Canvas (1)
+  m_Name: SpecialInteractionCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -549,7 +549,7 @@ GameObject:
   - component: {fileID: 874137184}
   - component: {fileID: 8697929042010918131}
   m_Layer: 0
-  m_Name: Canvas
+  m_Name: InteractionCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1525,8 +1525,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6637654556533828875}
-  m_LocalRotation: {x: 0.26299876, y: -0, z: -0, w: 0.9647962}
-  m_LocalPosition: {x: -4.7349935, y: 4.8565197, z: -8.280695}
+  m_LocalRotation: {x: 0.14636838, y: -0.76081353, z: 0.18411055, w: 0.60484904}
+  m_LocalPosition: {x: -0.038412094, y: 1.8830814, z: 18.721716}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6680420877109857599}
